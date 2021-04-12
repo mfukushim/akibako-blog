@@ -37,16 +37,33 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
     // '@nuxtjs/router',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/content
-    '@nuxt/content',
+    '@nuxt/content'
   ],
-
+  generate: {
+    async routes () {
+      const { $content } = require('@nuxt/content')
+      const files = await $content('posts').only(['path']).fetch()
+      const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
+      return files.reduce((p, c) => {
+        const m = c.path.match(reg)
+        if (m) {
+          p.push(`/${m[1]}/${m[2]}/${m[3]}/${m[4]}`)
+        }
+        return p
+      }, [])
+      // return files.map((file) => {
+      //   const m = file.path.match(reg)
+      //   return m ? `/${m[1]}/${m[2]}/${m[3]}/${m[4]}` : null
+      // })
+    }
+  },
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
 
