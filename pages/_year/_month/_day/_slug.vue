@@ -1,21 +1,20 @@
 <template>
-  <article>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.date }}</p>
-    <nuxt-content :document="post"/>
-  </article>
+  <PostView :body="post"></PostView>
 </template>
-<script  lang="ts">
-import { Context } from '@nuxt/types';
-import { Component, Vue } from 'nuxt-property-decorator';
+<script lang="ts">
+import { Context } from '@nuxt/types'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({
-  name: "slug"
+  name: 'slug'
 })
 export default class slug extends Vue {
   // post = {title:"",date:"",body:{}}
 
-  async asyncData ({$content, params}:Context) {
+  async asyncData ({
+    $content,
+    params
+  }: Context) {
     // console.log(content)
 
     const post = await $content('posts', `${params.year}-${params.month}-${params.day}-${params.slug}` || 'index').fetch()

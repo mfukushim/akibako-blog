@@ -34,59 +34,21 @@
           <v-card-actions>
           </v-card-actions>
         </v-card>
-        <v-expansion-panels accordion>
+        <div v-for="b in links" :key="b.slug">
+          <PostItem :article="b"></PostItem>
+        </div>
+<!--        <v-expansion-panels v-model="openedItem" >
           <v-expansion-panel
-            v-for="b in links" :key="b.slug">
-            <v-expansion-panel-header>
-              <v-card>
-                <div class="d-flex flex-no-wrap justify-space-between">
-                  <div>
-                    <v-card-title class="text-caption">
-                      {{ b.title }}
-                      <v-spacer></v-spacer>
-                      {{ b.date }}
-                    </v-card-title>
-                    <v-card-text class="text-sm-caption">
-                      {{ b.summary }}
-                      <nuxt-link :to="`/${b.year}/${b.month}/${b.day}/${b.link}`">続き</nuxt-link>
-                    </v-card-text>
-                  </div>
-                  <v-avatar
-                    class="ma-3"
-                    size="96"
-                    tile v-if="b.image"
-                  >
-                    <v-img :src="b.image"></v-img>
-                  </v-avatar>
-                </div>
-              </v-card>
+            v-for="b in links" :key="b.slug"
+          >
+            <v-expansion-panel-header @click="clickPanel(b)">
+              <PostItem v-if="!b.open" :article="b"></PostItem>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
+              <post-view v-if="b.open" :article="b"></post-view>
             </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
-<!--        <v-card v-for="b in links" :key="b.slug">
-          <div class="d-flex flex-no-wrap justify-space-between">
-            <div>
-              <v-card-title class="text-caption">
-                {{ b.title }}
-                <v-spacer></v-spacer>
-                {{ b.date }}
-              </v-card-title>
-              <v-card-text class="text-sm-caption">
-                {{ b.summary }}
-                <nuxt-link :to="`/${b.year}/${b.month}/${b.day}/${b.link}`">続き</nuxt-link>
-              </v-card-text>
-            </div>
-            <v-avatar
-              class="ma-3"
-              size="96"
-              tile v-if="b.image"
-            >
-              <v-img :src="b.image"></v-img>
-            </v-avatar>
-          </div>
-        </v-card>-->
+        </v-expansion-panels>-->
         <v-pagination></v-pagination>
 
       </v-col>
@@ -95,46 +57,40 @@
 </template>
 
 <script lang="ts">
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 import jp from 'jsonpath'
-
-// export default {
-//   components: {
-//     Logo,
-//     VuetifyLogo
-//   },
-//   data: () => ({
-//     model: 0,
-//     colors: [
-//       'primary',
-//       'secondary',
-//       'yellow darken-2',
-//       'red',
-//       'orange',
-//     ],
-//   }),
-import {Context} from '@nuxt/types';
-import {Component, Vue} from 'nuxt-property-decorator';
+import { Context } from '@nuxt/types'
+import { Component, Vue } from 'nuxt-property-decorator'
+import { BlogInfo } from '~/components/PostItem.vue'
 
 @Component({
-  name: "index"
+  name: 'index'
 })
 export default class index extends Vue {
-  async asyncData({$content, params}: Context) {
-    const query = $content('posts' || 'index').sortBy("date", "desc").limit(5)
+  openedItem:number | null = null
+  // postList:any[] = []
+
+/*
+  clickPanel (item:BlogInfo) {
+    this.postList.forEach((value:BlogInfo) => {
+      if (item.open) {
+        value.open = false
+      }
+    })
+    item.open = !item.open
+  }
+*/
+  async asyncData ({
+    $content,
+    params
+  }: Context) {
+    const query = $content('posts' || 'index').sortBy('date', 'desc').limit(5)
     const posts = await query.fetch()
-    const allCategories:string[] = []
     const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
-    const links = posts.reduce((p: any[], c: any) => {
+    const links = posts.reduce((p: BlogInfo[], c: any) => {
       const m = c.path.match(reg)
       if (m) {
         const pick = jp.query(c, '$.body..children[?(@.type=="text")]') as { value: string }[]
-        const img = jp.query(c, '$.body..children[?(@.type=="element" && @.tag=="img")]') as { props: {src:string} }[]
-
-        if(c && c.date && !allCategories.includes(c.date)){
-          allCategories.push(c.date)
-        }
+        const img = jp.query(c, '$.body..children[?(@.type=="element" && @.tag=="img")]') as { props: { src: string } }[]
         p.push({
           year: m[1],
           month: m[2],
@@ -143,15 +99,16 @@ export default class index extends Vue {
           slug: `/${m[1]}/${m[2]}/${m[3]}/${m[4]}`,
           title: c.title,
           date: c.date,
-          summary: (pick && pick.length > 0) ? pick.map(value => value.value.trim()).join("").substring(0, 50) + "..." : "",
-          image: (img && img.length > 0) ? img[0].props.src : null
-        })  //  `/${m[1]}/${m[2]}/${m[3]}/${m[4]}`
+          open: false,
+          categories: [],
+          summary: (pick && pick.length > 0) ? pick.map(value => value.value.trim()).join('').substring(0, 50) + '...' : '',
+          image: (img && img.length > 0) ? img[0].props.src : undefined
+        })
       }
       return p
     }, [])
-    console.log(allCategories)
-
-    return {links}
+    // this.postList = links
+    return { links }
   }
 }
 </script>
