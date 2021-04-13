@@ -1,0 +1,65 @@
+{
+  "slug": "2021-03-02-techtool-pro-プレミアムcd-for-macintosh",
+  "title": "TechTool Pro プレミアムCD For Macintosh",
+  "date": "2021-03-02",
+  "categories": [
+    "floppy-disk-cd-rom-label-collections"
+  ],
+  "toc": [],
+  "body": {
+    "type": "root",
+    "children": [
+      {
+        "type": "element",
+        "tag": "p",
+        "props": {},
+        "children": [
+          {
+            "type": "element",
+            "tag": "img",
+            "props": {
+              "alt": "",
+              "src": "../../../images/IMG_20210302_121906_9-1024x1020.jpg"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "value": "\n"
+      },
+      {
+        "type": "element",
+        "tag": "p",
+        "props": {},
+        "children": [
+          {
+            "type": "text",
+            "value": "ようやく次のスタックを開いたものの、さすがにCDスタックでためているものはそろそろなくなってきて、あとはバックアップCDとか案件のCDとかになるので残量も少なくなってきたところ。ただ、箱に入ったCDとなるとまた別個あるのでそっちまでいれると撮るのが面倒だが結構残りはある。箱に入ったものはそれなりに珍しいものもあるので検討中。雑誌添付CDまで入れるとまだ全然底なしなのだが、雑誌添付CDはデザインがどれも似たり寄ったりなので面白みは少ないし。"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "value": "\n"
+      },
+      {
+        "type": "element",
+        "tag": "p",
+        "props": {},
+        "children": [
+          {
+            "type": "text",
+            "value": "Techtool ProのCDは試供品とかになってるので何か扱いが特別なものだったかな。"
+          }
+        ]
+      }
+    ]
+  },
+  "dir": "/posts",
+  "path": "/posts/2021-03-02-techtool-pro-プレミアムcd-for-macintosh",
+  "extension": ".md",
+  "createdAt": "2021-04-13T03:26:45.374Z",
+  "updatedAt": "2021-04-13T03:22:48.620Z"
+}

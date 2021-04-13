@@ -5,7 +5,7 @@ categories:
   - "floppy-disk-cd-rom-label-collections"
 ---
 
-![](images/IMG_20201030_124554_2-1009x1024.jpg)
+![](../../../images/IMG_20201030_124554_2-1009x1024.jpg)
 
 まぁこれもBTO添付CD
 
