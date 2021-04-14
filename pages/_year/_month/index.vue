@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{params.year}}/{{params.month}}/{{params.day}}</p>
+    <p>{{params.year}}/{{params.month}}</p>
     <div v-for="b in links" :key="b.slug">
       <PostItem :article="b"></PostItem>
     </div>
@@ -22,11 +22,7 @@ export default class dateIndex extends Vue {
   }: Context) {
 console.log()
     const query = $content('posts' || 'index').where({
-      date: { $eq :`${params.year}-${params.month}-${params.day}` }
-
-      // date: { $between :[this.top || '2020-12-30', this.end || '2020-12-31'] }
-      // date: { $between :['2020-12-30','2020-12-31'] }
-      // date: { $between :[Date.parse(this.top || '2000/01/01'),Date.parse(this.end || dayjs().toISOString())] },
+      date: { $between :[`${params.year}-${params.month}-01`, `${params.year}-${params.month}-31`] }
     })
       .sortBy('date', 'desc')
     const posts = await query.fetch()
@@ -52,7 +48,7 @@ console.log()
       }
       return p
     }, [])
-    return { links ,params}
+    return { links,params }
   }
 }
 </script>

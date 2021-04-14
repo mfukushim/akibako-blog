@@ -28,8 +28,7 @@
             あきばこ工房
           </v-card-title>
           <v-card-text>
-            <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower
-              developers to create amazing applications.</p>
+            <p>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</p>
           </v-card-text>
           <v-card-actions>
           </v-card-actions>

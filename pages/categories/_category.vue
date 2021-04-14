@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{params.year}}/{{params.month}}/{{params.day}}</p>
+    <p>Category : {{params.category}}</p>
     <div v-for="b in links" :key="b.slug">
       <PostItem :article="b"></PostItem>
     </div>
@@ -13,20 +13,16 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { BlogInfo } from '~/components/PostItem.vue'
 
 @Component({
-  name: 'dateIndex'
+  name: 'Category'
 })
-export default class dateIndex extends Vue {
+export default class Category extends Vue {
   async asyncData ({
     $content,
     params
   }: Context) {
 console.log()
     const query = $content('posts' || 'index').where({
-      date: { $eq :`${params.year}-${params.month}-${params.day}` }
-
-      // date: { $between :[this.top || '2020-12-30', this.end || '2020-12-31'] }
-      // date: { $between :['2020-12-30','2020-12-31'] }
-      // date: { $between :[Date.parse(this.top || '2000/01/01'),Date.parse(this.end || dayjs().toISOString())] },
+      categories: { $contains : params.category }
     })
       .sortBy('date', 'desc')
     const posts = await query.fetch()
@@ -52,7 +48,7 @@ console.log()
       }
       return p
     }, [])
-    return { links ,params}
+    return { links,params }
   }
 }
 </script>
