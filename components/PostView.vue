@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { BlogInfo } from '~/components/PostItem'
+import { BlogInfo } from '~/components/PostItem.vue'
 import { IContentDocument } from '@nuxt/content/types/content'
 
 @Component({
