@@ -50,6 +50,12 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-text-field
+        label="Search"
+        v-model="queryText"
+        @change="fullSearch"
+        prepend-icon="mdi-magnify" class="mt-8"
+      ></v-text-field>
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
@@ -113,60 +119,76 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Home',
-          to: '/'
-        },
-        {icon: 'mdi-book-open-variant',title: 'floppy-disk-cd-rom-label-collections',to: '/categories/floppy-disk-cd-rom-label-collections'},
-        {icon: 'mdi-book-open-variant',title: 'old-books-of-computer',to: '/categories/old-books-of-computer'},
-        {icon: 'mdi-book-open-variant',title: 'どうぶつの森',to: '/categories/どうぶつの森'},
-        {icon: 'mdi-book-open-variant',title: '54文字',to: '/categories/54文字'},
-        {icon: 'mdi-book-open-variant',title: '怪しい引き出物',to: '/categories/怪しい引き出物'},
-        {icon: 'mdi-book-open-variant',title: '古物写真',to: '/categories/古物写真'},
-        {icon: 'mdi-book-open-variant',title: 'software',to: '/categories/software'},
-        {icon: 'mdi-book-open-variant',title: 'web-tips',to: '/categories/web-tips'},
-        {icon: 'mdi-book-open-variant',title: 'c-tips',to: '/categories/c-tips'},
-        {icon: 'mdi-book-open-variant',title: 'androidios-tips',to: '/categories/androidios-tips'},
-        {icon: 'mdi-book-open-variant',title: 'java-tips-scala-tips',to: '/categories/java-tips-scala-tips'},
-        {icon: 'mdi-book-open-variant',title: 'java-tips',to: '/categories/java-tips'},
-        {icon: 'mdi-book-open-variant',title: 'マイコン老年の今時のプログラム技術',to: '/categories/マイコン老年の今時のプログラム技術'},
-        {icon: 'mdi-book-open-variant',title: 'publishsoft',to: '/categories/publishsoft'},
-        {icon: 'mdi-book-open-variant',title: 'smalltalk',to: '/categories/smalltalk'},
-        {icon: 'mdi-book-open-variant',title: 'ゲーム',to: '/categories/ゲーム'},
-        {icon: 'mdi-book-open-variant',title: '映画',to: '/categories/映画'},
-        {icon: 'mdi-book-open-variant',title: 'オープンアイデア',to: '/categories/オープンアイデア'},
-        {icon: 'mdi-book-open-variant',title: 'ニューロエンジン',to: '/categories/ニューロエンジン'},
-        {icon: 'mdi-book-open-variant',title: '言葉の欠片',to: '/categories/言葉の欠片'},
-        {icon: 'mdi-book-open-variant',title: '日々の適当な覚え書き',to: '/categories/日々の適当な覚え書き'},
-        {icon: 'mdi-book-open-variant',title: 'easypost',to: '/categories/easypost'},
-        {icon: 'mdi-book-open-variant',title: '旧ログ-コード採掘場',to: '/categories/旧ログ-コード採掘場'},
-        {icon: 'mdi-book-open-variant',title: 'yahooj-port',to: '/categories/yahooj-port'},
-        {icon: 'mdi-book-open-variant',title: '旧ログ-seasonal-leaf',to: '/categories/旧ログ-seasonal-leaf'},
-        {icon: 'mdi-book-open-variant',title: '未分類',to: '/categories/未分類'},
-        {icon: 'mdi-book-open-variant',title: '非説明非保証ログ',to: '/categories/非説明非保証ログ'},
+<script lang="ts">
+import jp from 'jsonpath'
+import { Context } from '@nuxt/types'
+import { Component, Vue } from 'nuxt-property-decorator'
+import { BlogInfo } from '~/components/PostItem.vue'
 
-        {
-          icon: 'mdi-book-open-variant',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'あきばこ工房',
-      selectDate: '',
-      menu2: ''
+@Component({
+  name: 'index'
+})
+export default class index extends Vue {
+  clipped = false
+  drawer= false
+  fixed= false
+  items = [
+    {
+      icon: 'mdi-apps',
+      title: 'Home',
+      to: '/'
+    },
+    {icon: 'mdi-book-open-variant',title: 'floppy-disk-cd-rom-label-collections',to: '/categories/floppy-disk-cd-rom-label-collections'},
+    {icon: 'mdi-book-open-variant',title: 'old-books-of-computer',to: '/categories/old-books-of-computer'},
+    {icon: 'mdi-book-open-variant',title: 'どうぶつの森',to: '/categories/どうぶつの森'},
+    {icon: 'mdi-book-open-variant',title: '54文字',to: '/categories/54文字'},
+    {icon: 'mdi-book-open-variant',title: '怪しい引き出物',to: '/categories/怪しい引き出物'},
+    {icon: 'mdi-book-open-variant',title: '古物写真',to: '/categories/古物写真'},
+    {icon: 'mdi-book-open-variant',title: 'software',to: '/categories/software'},
+    {icon: 'mdi-book-open-variant',title: 'web-tips',to: '/categories/web-tips'},
+    {icon: 'mdi-book-open-variant',title: 'c-tips',to: '/categories/c-tips'},
+    {icon: 'mdi-book-open-variant',title: 'androidios-tips',to: '/categories/androidios-tips'},
+    {icon: 'mdi-book-open-variant',title: 'java-tips-scala-tips',to: '/categories/java-tips-scala-tips'},
+    {icon: 'mdi-book-open-variant',title: 'java-tips',to: '/categories/java-tips'},
+    {icon: 'mdi-book-open-variant',title: 'マイコン老年の今時のプログラム技術',to: '/categories/マイコン老年の今時のプログラム技術'},
+    {icon: 'mdi-book-open-variant',title: 'publishsoft',to: '/categories/publishsoft'},
+    {icon: 'mdi-book-open-variant',title: 'smalltalk',to: '/categories/smalltalk'},
+    {icon: 'mdi-book-open-variant',title: 'ゲーム',to: '/categories/ゲーム'},
+    {icon: 'mdi-book-open-variant',title: '映画',to: '/categories/映画'},
+    {icon: 'mdi-book-open-variant',title: 'オープンアイデア',to: '/categories/オープンアイデア'},
+    {icon: 'mdi-book-open-variant',title: 'ニューロエンジン',to: '/categories/ニューロエンジン'},
+    {icon: 'mdi-book-open-variant',title: '言葉の欠片',to: '/categories/言葉の欠片'},
+    {icon: 'mdi-book-open-variant',title: '日々の適当な覚え書き',to: '/categories/日々の適当な覚え書き'},
+    {icon: 'mdi-book-open-variant',title: 'easypost',to: '/categories/easypost'},
+    {icon: 'mdi-book-open-variant',title: '旧ログ-コード採掘場',to: '/categories/旧ログ-コード採掘場'},
+    {icon: 'mdi-book-open-variant',title: 'yahooj-port',to: '/categories/yahooj-port'},
+    {icon: 'mdi-book-open-variant',title: '旧ログ-seasonal-leaf',to: '/categories/旧ログ-seasonal-leaf'},
+    {icon: 'mdi-book-open-variant',title: '未分類',to: '/categories/未分類'},
+    {icon: 'mdi-book-open-variant',title: '非説明非保証ログ',to: '/categories/非説明非保証ログ'},
+
+    {
+      icon: 'mdi-book-open-variant',
+      title: 'Inspire',
+      to: '/inspire'
     }
+  ]
+  miniVariant= false
+  right= true
+  rightDrawer= false
+  title= 'あきばこ工房'
+  selectDate= ''
+  menu2= ''
+
+  queryText= ""
+
+  fullSearch () {
+    this.$router.push(`/search/${this.queryText}`)
   }
+//<script>
+// export default {
+//   data () {
+//     return {
+//     }
+//   }
 }
 </script>
