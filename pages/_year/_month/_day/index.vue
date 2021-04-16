@@ -10,7 +10,8 @@
 import jp from 'jsonpath'
 import { Context } from '@nuxt/types'
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { BlogInfo } from '~/components/PostItem.vue'
+import { Common } from '~/services/Common'
+// import { BlogInfo } from '~/components/PostItem.vue'
 
 @Component({
   name: 'dateIndex'
@@ -30,6 +31,9 @@ console.log()
     })
       .sortBy('date', 'desc')
     const posts = await query.fetch()
+    const links = Common.getPostList(posts)
+
+/*
     const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
     const links = posts.reduce((p: BlogInfo[], c: any) => {
       const m = c.path.match(reg)
@@ -52,6 +56,7 @@ console.log()
       }
       return p
     }, [])
+*/
     return { links ,params}
   }
 }

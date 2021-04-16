@@ -27,7 +27,9 @@
 <script lang="ts">
 import { Context } from '@nuxt/types'
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { BlogInfo } from '~/services/Common'
 
+/*
 export interface BlogInfo {
   title: string;
   slug: string;
@@ -37,12 +39,14 @@ export interface BlogInfo {
   // toc: string[];
   // body: any;
   summary:string;
+  post: any | undefined,
   year: string;
   month:string;
   day:string;
   link: string;
   image: string | undefined;
 }
+*/
 
 @Component({
   name: 'PostItem'

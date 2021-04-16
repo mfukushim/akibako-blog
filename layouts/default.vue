@@ -12,6 +12,7 @@
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
+          @click="drawer = false"
           router
           exact
         >
@@ -30,7 +31,7 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
+<!--      <v-btn
         icon
         @click.stop="miniVariant = !miniVariant"
       >
@@ -47,7 +48,7 @@
         @click.stop="fixed = !fixed"
       >
         <v-icon>mdi-minus</v-icon>
-      </v-btn>
+      </v-btn>-->
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-text-field
@@ -123,7 +124,7 @@
 import jp from 'jsonpath'
 import { Context } from '@nuxt/types'
 import { Component, Vue } from 'nuxt-property-decorator'
-import { BlogInfo } from '~/components/PostItem.vue'
+// import { BlogInfo } from '~/components/PostItem.vue'
 
 @Component({
   name: 'index'
