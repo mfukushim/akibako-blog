@@ -1,12 +1,17 @@
 <template>
   <article v-if="show">
-    <v-row>
-      <v-col class="text-h4">
-        {{ body.title }}
-      </v-col>
-      <v-spacer></v-spacer><v-icon @click="back">mdi-keyboard-return</v-icon>
-    </v-row>
-    {{ body.date }}
+    <div class="d-flex flex-no-wrap  flex-column">
+      <div class="d-flex flex-row">
+        <div class="text-h4 ma-1">{{ body.title }}</div>
+        <div class="d-flex ml-auto"><v-icon class="primary" @click="back">mdi-keyboard-return</v-icon></div>
+      </div>
+      <div class="d-flex flex-row">
+      <div class="ma-2"><DateView :article="article"></DateView></div>
+      <div class="ma-2"><CategoryChipView :body="body"></CategoryChipView>
+      </div>
+      </div>
+
+    </div>
     <nuxt-content :document="body"/>
     <v-pagination></v-pagination>
   </article>
@@ -14,8 +19,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-// import { BlogInfo } from '~/components/PostItem.vue'
-import { IContentDocument } from '@nuxt/content/types/content'
 import { BlogInfo } from '~/services/Common'
 
 @Component({
@@ -33,17 +36,6 @@ export default class PostView extends Vue {
     this.$router.back()
   }
 
-/*
-  async mounted () {
-    if (this.article) {
-      console.log(this.article.slug)
-      const b = await this.$content('posts', `${this.article.year}-${this.article.month}-${this.article.day}-${this.article.link}`).fetch()
-      console.log(b)
-      this.body = b
-      this.show = true
-    }
-  }
-*/
 }
 </script>
 

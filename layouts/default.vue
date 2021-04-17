@@ -182,14 +182,12 @@ export default class index extends Vue {
 
   queryText= ""
 
+  mounted () {
+    this.drawer = false
+  }
+
   fullSearch () {
     this.$router.push(`/search/${this.queryText}`)
   }
-//<script>
-// export default {
-//   data () {
-//     return {
-//     }
-//   }
 }
 </script>

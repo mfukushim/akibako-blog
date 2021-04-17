@@ -1,59 +1,41 @@
 <template>
-  <v-card>
-    <div class="d-flex flex-no-wrap justify-space-between">
-      <div>
-        <v-card-title class="text-caption">
-          {{ article.title }}
-          <v-spacer></v-spacer>
-          {{ article.date }}
-        </v-card-title>
-        <v-card-text class="text-sm-caption">
-          {{ article.summary }}
-          <nuxt-link :to="`/${article.year}/${article.month}/${article.day}/${article.link}`">続き</nuxt-link>
-        </v-card-text>
+  <v-card @click="jumpPage">
+    <div class="d-flex flex-no-wrap  flex-row">
+      <div class="d-flex flex-column">
+        <div class="text-subtitle-2 ma-2">{{ article.title }}</div>
+        <div class="text-body-2 ma-1">{{ article.summary }}</div>
       </div>
-      <v-avatar
-        class="ma-3"
-        size="96"
-        tile
-        v-if="article.image"
-      >
-        <v-img :src="article.image"></v-img>
-      </v-avatar>
-    </div>
+      <div class="d-flex ml-auto ma-2">{{ article.date }}</div>
+        <v-avatar
+          class="ma-3"
+          size="96"
+          tile
+          v-if="article.image"
+        >
+          <v-img :src="article.image"></v-img>
+        </v-avatar>
+      </div>
   </v-card>
 </template>
 
 <script lang="ts">
-import { Context } from '@nuxt/types'
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { BlogInfo } from '~/services/Common'
-
-/*
-export interface BlogInfo {
-  title: string;
-  slug: string;
-  date: string;
-  categories: string[];
-  open: boolean;
-  // toc: string[];
-  // body: any;
-  summary:string;
-  post: any | undefined,
-  year: string;
-  month:string;
-  day:string;
-  link: string;
-  image: string | undefined;
-}
-*/
+import DateIndex from '~/pages/_year/_month/_day/index.vue'
 
 @Component({
-  name: 'PostItem'
+  name: 'PostItem',
+  components: { DateIndex }
 })
 export default class PostItem extends Vue {
   @Prop()
-  article:BlogInfo | undefined
+  article: BlogInfo | undefined
+
+  jumpPage () {
+    if (this.article) {
+      this.$router.push(`/${this.article.year}/${this.article.month}/${this.article.day}/${this.article.link}`)
+    }
+  }
 }
 </script>
 
