@@ -1,5 +1,5 @@
 <template>
-  <v-card @click="jumpPage">
+  <v-card @click="jumpPage" >
     <div class="d-flex flex-no-wrap  flex-row">
       <div class="d-flex flex-column">
         <div class="text-subtitle-2 ma-2">{{ article.title }}</div>
@@ -30,8 +30,13 @@ import DateIndex from '~/pages/_year/_month/_day/index.vue'
 export default class PostItem extends Vue {
   @Prop()
   article: BlogInfo | undefined
+  // @Prop()
+  // noLink=false
 
   jumpPage () {
+    // if (this.noLink) {
+    //   return
+    // }
     if (this.article) {
       this.$router.push(`/${this.article.year}/${this.article.month}/${this.article.day}/${this.article.link}`)
     }

@@ -22,12 +22,16 @@
 <script lang="ts">
 import { Context } from '@nuxt/types'
 import { Component, Vue } from 'nuxt-property-decorator'
-import { Common } from '~/services/Common'
+import { BlogInfo, Common } from '~/services/Common'
 
 @Component({
   name: 'Category'
 })
 export default class Category extends Vue {
+  links?: BlogInfo[]
+  params?: any
+  title?=""
+
   async asyncData ({
     $content,
     params
@@ -38,10 +42,12 @@ export default class Category extends Vue {
     })
       .sortBy('date', 'desc')
     const posts = await query.fetch()
+    const title = `Category : ${params.category}`
     const links = Common.getPostList(posts)
     return {
       links,
-      params
+      params,
+      title
     }
   }
   back () {

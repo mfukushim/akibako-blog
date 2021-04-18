@@ -7,9 +7,9 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - akibako-nuxt',
-    title: 'akibako-nuxt',
+    title: 'akibako koubou',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -37,14 +37,19 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
     // '@nuxtjs/router',
+    '@nuxtjs/google-analytics'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/content
-    '@nuxt/content'
+    '@nuxt/content',
+    ['@nuxtjs/google-adsense', {
+      id: 'ca-pub-8656421186521759',
+      test: true
+    }]
   ],
   generate: {
     async routes () {
@@ -94,5 +99,10 @@ export default {
   // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  googleAnalytics: {
+    // Options
+    id: 'UA-55797371-4'
   }
+
 }

@@ -13,7 +13,6 @@
 
     </div>
     <nuxt-content :document="body"/>
-    <v-pagination></v-pagination>
   </article>
 </template>
 
