@@ -42,7 +42,7 @@ export default class ImageStack extends Vue {
     stroke: 'black',
     strokeWidth: 4
   }
-  img?: Konva.ImageConfig = {}
+  img: Konva.ImageConfig = {} as Konva.ImageConfig
 
   mounted () {
     if (process.client) {
@@ -57,7 +57,7 @@ export default class ImageStack extends Vue {
           width: 200,
           height: 200,
           rotation: 45,
-          scale: 3,
+          scale: {x:3,y:3},
           opacity: 0.5,
           // scale: scale,
           image: image
