@@ -31,14 +31,20 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
+      <nuxt-link to="/" class="h4">
+        <v-btn >{{title}}</v-btn>
+<!--      <v-toolbar-title v-text="title" />-->
+      </nuxt-link>
       <v-spacer />
-      <v-text-field
+      <nuxt-link to="/search" class="h4">
+      <v-btn fab ><v-icon>mdi-magnify</v-icon></v-btn>
+      </nuxt-link>
+<!--      <v-text-field
         label="Search"
         v-model="queryText"
         @change="fullSearch"
         prepend-icon="mdi-magnify" class="mt-8"
-      ></v-text-field>
+      ></v-text-field>-->
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
