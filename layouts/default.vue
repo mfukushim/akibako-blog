@@ -31,12 +31,12 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <nuxt-link to="/" class="h4">
-        <v-btn >{{title}}</v-btn>
+      <nuxt-link to="/" class="h4" style="text-decoration: none;">
+        <v-btn class="text-h4" >{{title}}</v-btn>
 <!--      <v-toolbar-title v-text="title" />-->
       </nuxt-link>
       <v-spacer />
-      <nuxt-link to="/search" class="h4">
+      <nuxt-link to="/search" class="h4" style="text-decoration: none;">
       <v-btn fab ><v-icon>mdi-magnify</v-icon></v-btn>
       </nuxt-link>
 <!--      <v-text-field

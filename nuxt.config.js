@@ -48,7 +48,7 @@ export default {
     '@nuxt/content',
     ['@nuxtjs/google-adsense', {
       id: 'ca-pub-8656421186521759',
-      test: true
+      test: false
     }]
   ],
   generate: {

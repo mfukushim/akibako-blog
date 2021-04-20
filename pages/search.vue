@@ -1,18 +1,27 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="11">
+    <v-card class="ma-2">
+      <v-card-text>
+        全文検索は文字単位検索のようなので語はヒットしないみたい。あとキーストロークの検出が微妙なので最後にスペースを入れたほうがうまく当たるかも。
+        <v-icon class="primary" @click="back">mdi-keyboard-return</v-icon>
+      </v-card-text>
+      <v-card-actions>
         <v-text-field
           label="Search"
           v-model="queryText"
           @keyup="query"
           prepend-icon="mdi-magnify" class="mt-8"
         ></v-text-field>
+      </v-card-actions>
+    </v-card>
+<!--    <v-row>
+      <v-col>
+      </v-col>
+      <v-col cols="11">
       </v-col>
       <v-col cols="1" class="text-right">
-        <v-icon class="primary" @click="back">mdi-keyboard-return</v-icon>
       </v-col>
-    </v-row>
+    </v-row>-->
     <v-list>
       <v-list-item
         v-for="(b,index) in links" :key="b.slug"

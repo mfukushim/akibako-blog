@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ImageStack></ImageStack>
+<!--    <ImageStack></ImageStack>-->
     <v-parallax
       dark
       src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
@@ -29,6 +29,7 @@
             ブログ改装 評価中
           </v-card-title>
           <v-card-text>
+            ipfsだと近くにコンテンツが来ていないとかなり重いみたい。その場合、画像が出なかったりページが出なかったりするみたいなので、今のところはそこは仕方が無いということで。リロードより長時間待つほうが効果があるかも(長く待ったらリロードは必要なのだが。。。)
           </v-card-text>
           <v-card-actions>
           </v-card-actions>
@@ -75,8 +76,8 @@
                   </v-row>
                 </v-col>
                 <v-col cols="2">
-                  <nuxt-link :to="`/${b.year}/${b.month}/${b.day}/${b.link}`" class="h4">
-                    <v-btn small color="orange darken-2" dark>
+                  <nuxt-link :to="`/${b.year}/${b.month}/${b.day}/${b.link}`" style="text-decoration: none;">
+                    <v-btn small color="gray" >
                       <v-icon small dark left>
                         mdi-arrow-right
                       </v-icon>
