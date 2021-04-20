@@ -5,7 +5,7 @@
         <v-text-field
           label="Search"
           v-model="queryText"
-          @keydown="query"
+          @keyup="query"
           prepend-icon="mdi-magnify" class="mt-8"
         ></v-text-field>
       </v-col>
@@ -49,7 +49,7 @@ export default class Search extends Vue {
       // .only(['title', 'description'])
       .sortBy('date', 'desc')
       .limit(12)
-      .search(this.queryText)
+      .search(this.queryText+" ")
       .fetch()
     this.links = Common.getPostList(posts)
   }
