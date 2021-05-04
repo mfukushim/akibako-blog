@@ -45,6 +45,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/content
+    // 'nuxt-content',
     '@nuxt/content',
     ['@nuxtjs/google-adsense', {
       id: 'ca-pub-8656421186521759',
@@ -53,7 +54,8 @@ export default {
   ],
   generate: {
     async routes () {
-      const { $content } = require('@nuxt/content')
+      const { $content } = require('nuxt-content')
+      // const { $content } = require('@nuxt/content')
       const files = await $content('posts').only(['path']).fetch()
       const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
       return files.reduce((p, c) => {
@@ -71,7 +73,8 @@ export default {
   },
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
-    fullTextSearchFields: ['title', 'description']
+    fullTextSearchFields: ['title', 'description'],
+    ipfsRoot: 'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -37,8 +37,10 @@
 </template>
 <script lang="ts">
 import { Context } from '@nuxt/types'
+// import { $content } from '@nuxt/content'
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import { BlogInfo, Common } from '~/services/Common'
+// import { $content } from '../../content/packages/content'
 
 @Component({
   name: 'Search'

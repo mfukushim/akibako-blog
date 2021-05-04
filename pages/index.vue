@@ -54,14 +54,17 @@
                     tile
                     v-if="b.image"
                   >
-                    <v-img :src="b.image"></v-img>
+                    <v-img :src="imageUrl(b)"></v-img>
                   </v-avatar>
                 </div>
               </v-card>
 
               <v-row v-else>
                 <v-col cols="10">
-                  <v-row class="h2 pa-1">{{ b.title }}</v-row>
+                  <v-row class="h2 pa-1">{{ b.title }}
+                    <v-spacer></v-spacer>
+                    <v-btn outlined target="_blank" :href="postUrl(b)">{{b.cid}}</v-btn>
+                  </v-row>
                   <v-row>
                     <nuxt-link :to="b.year" class="h5 pa-1">
                       <v-chip>
@@ -113,10 +116,22 @@ export default class index extends Vue {
   async asyncData ({
     $content
   }: Context) {
-    const query = $content('posts' || 'index').sortBy('date', 'desc').limit(5)
+    const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{ deep: true}).sortBy('date', 'desc').limit(5)
+    // const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{ deep: true}).sortBy('date', 'desc').limit(5)
+    // const query = $content('posts' || 'index').sortBy('date', 'desc').limit(5)
     const posts = await query.fetch()
     const links = Common.getPostList(posts)
+    console.log(links)
     return { links }
+  }
+
+  imageUrl (info: BlogInfo) {
+    return `https://ipfs.io/ipfs/${info.cid}/${info.image}`
+    // return `https://ipfs.io/ipfs/${info.cid}/${info.date}-${info.link}/${info.image}`
+  }
+
+  postUrl (info: BlogInfo) {
+    return `https://ipfs.io/ipfs/${info.cid}/index.md`
   }
 }
 </script>

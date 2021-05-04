@@ -12,7 +12,7 @@
           tile
           v-if="article.image"
         >
-          <v-img :src="article.image"></v-img>
+          <v-img :src="imageUrl(article)"></v-img>
         </v-avatar>
       </div>
   </v-card>
@@ -40,6 +40,10 @@ export default class PostItem extends Vue {
     if (this.article) {
       this.$router.push(`/${this.article.year}/${this.article.month}/${this.article.day}/${this.article.link}`)
     }
+  }
+
+  imageUrl (info: BlogInfo) {
+    return `https://ipfs.io/ipfs/${info.cid}/${info.image}`
   }
 }
 </script>
