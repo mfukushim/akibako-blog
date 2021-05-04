@@ -12,7 +12,7 @@
           tile
           v-if="article.image"
         >
-          <v-img :src="imageUrl(article)"></v-img>
+          <v-img :src="article.image"></v-img>
         </v-avatar>
       </div>
   </v-card>
@@ -42,9 +42,9 @@ export default class PostItem extends Vue {
     }
   }
 
-  imageUrl (info: BlogInfo) {
-    return `https://ipfs.io/ipfs/${info.cid}/${info.image}`
-  }
+  // imageUrl (info: BlogInfo) {
+  //   return `https://ipfs.io/ipfs/${info.cid}/${info.image}`
+  // }
 }
 </script>
 

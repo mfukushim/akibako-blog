@@ -9,6 +9,8 @@
       <div class="ma-2"><DateView :article="article"></DateView></div>
       <div class="ma-2"><CategoryChipView :body="body"></CategoryChipView>
       </div>
+        <v-spacer></v-spacer>
+        <v-btn outlined target="_blank" style="text-transform: none" small :href="postUrl(body.parentCid)"><v-img width="24" height="24" :src="base('ipfs-logo-vector-ice-text.svg')"></v-img>{{body.parentCid}}</v-btn>
       </div>
 
     </div>
@@ -33,6 +35,17 @@ export default class PostView extends Vue {
 
   back () {
     this.$router.back()
+  }
+  postUrl (cid: string) {
+    console.log(this.$route)
+    return `https://ipfs.io/ipfs/${cid}/index.md`
+  }
+
+  base (subPath: string) {
+    const a = '../'.repeat(this.$route.path.substr(1).split('/').length-1)
+    console.log(a)
+    // return a+subPath
+    return a+subPath
   }
 
 }

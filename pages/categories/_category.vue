@@ -36,8 +36,9 @@ export default class Category extends Vue {
     $content,
     params
   }: Context) {
-    console.log()
-    const query = $content('posts' || 'index').where({
+    // console.log()
+    // const post = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
+    const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{deep: true}).where({
       categories: { $contains: params.category }
     })
       .sortBy('date', 'desc')

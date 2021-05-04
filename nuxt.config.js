@@ -13,21 +13,30 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: ''
+      }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      }
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
+  css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -53,11 +62,14 @@ export default {
     }]
   ],
   generate: {
-    async routes () {
-      const { $content } = require('nuxt-content')
-      // const { $content } = require('@nuxt/content')
-      const files = await $content('posts').only(['path']).fetch()
-      const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
+    routes: async function () {
+      // const { $content } = require('nuxt-content')
+      const { $content } = require('@nuxt/content')
+      const files = await $content(this.content.ipfsRoot, { deep: true }).only(['path']).fetch()
+      // const files = await $content('posts').only(['path']).fetch()
+
+      const reg = new RegExp(`${this.content.ipfsRoot}\/(\d{4})-(\d{2})-(\d{2})-(.+)`)
+      // const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
       return files.reduce((p, c) => {
         const m = c.path.match(reg)
         if (m) {
@@ -101,8 +113,7 @@ export default {
   //   }
   // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  },
+  build: {},
   googleAnalytics: {
     // Options
     id: 'UA-55797371-4'

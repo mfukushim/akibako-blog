@@ -40,7 +40,8 @@ export default class Search extends Vue {
     $content,
     params
   }: Context) {
-    const query = $content('posts' || 'index').search(params.query)
+    //  'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'
+    const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{deep: true}).search(params.query)
       .sortBy('date', 'desc')
     const posts = await query.fetch()
     const links = Common.getPostList(posts)

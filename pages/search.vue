@@ -49,6 +49,7 @@ export default class Search extends Vue {
   links?:BlogInfo[]
   params:any
   queryText:string = ""
+  $content:any
 
   // @Watch("queryText")
   async query () {
@@ -56,7 +57,8 @@ export default class Search extends Vue {
       this.links = []
       return
     }
-    const posts = await this.$content('posts')
+    //'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'
+    const posts = await this.$content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L')
       // .only(['title', 'description'])
       .sortBy('date', 'desc')
       .limit(12)
