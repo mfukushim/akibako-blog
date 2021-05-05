@@ -58,12 +58,13 @@ export default class Search extends Vue {
       return
     }
     //'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'
-    const posts = await this.$content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L')
+    const posts = await this.$content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{deep: true})
       // .only(['title', 'description'])
       .sortBy('date', 'desc')
       .limit(12)
       .search(this.queryText+" ")
       .fetch()
+    console.log(posts)
     this.links = Common.getPostList(posts)
   }
 

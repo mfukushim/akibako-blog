@@ -122,11 +122,11 @@ export default class index extends Vue {
 
   async asyncData ({
     $content,
-    app
+    $config
   }: Context) {  //: Context
     // const a = app
     // console.log(a)
-    const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{ deep: true}).sortBy('date', 'desc').limit(5)
+    const query = $content($config.ipfsRoot,{ deep: true}).sortBy('date', 'desc').limit(5)
     // const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{ deep: true}).sortBy('date', 'desc').limit(5)
     // const query = $content('posts' || 'index').sortBy('date', 'desc').limit(5)
     const posts = await query.fetch()

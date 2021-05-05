@@ -61,26 +61,42 @@ export default {
       test: false
     }]
   ],
+  publicRuntimeConfig: {
+    ipfsRoot: 'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L'
+  },
+
   generate: {
-    routes: async function () {
+    routes: async function () { //  { $config: { ipfsRoot } }
       // const { $content } = require('nuxt-content')
       const { $content } = require('@nuxt/content')
-      const files = await $content(this.content.ipfsRoot, { deep: true }).only(['path']).fetch()
+      // const conf = require('nuxt.config')
+
+      const files = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L', { deep: true }).only(['path']).fetch()
       // const files = await $content('posts').only(['path']).fetch()
 
-      const reg = new RegExp(`${this.content.ipfsRoot}\/(\d{4})-(\d{2})-(\d{2})-(.+)`)
+      const reg = /\/QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index/
+      // const reg = new RegExp(`\/QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index`)
       // const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
-      return files.reduce((p, c) => {
+      const reduce = files.reduce((p, c) => {
         const m = c.path.match(reg)
         if (m) {
           p.push(`/${m[1]}/${m[2]}/${m[3]}/${m[4]}`)
         }
         return p
       }, [])
-      // return files.map((file) => {
-      //   const m = file.path.match(reg)
-      //   return m ? `/${m[1]}/${m[2]}/${m[3]}/${m[4]}` : null
-      // })
+      console.log(reduce)
+      return reduce
+/*
+      const { $content } = require('@nuxt/content')
+      const files = await $content('posts').only(['path']).fetch()
+      const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
+      const map = files.map((file) => {
+        const m = file.path.match(reg)
+        return m ? `/${m[1]}/${m[2]}/${m[3]}/${m[4]}` : null
+      })
+      console.log(map)
+      return map
+*/
     }
   },
   // Content module configuration: https://go.nuxtjs.dev/config-content
