@@ -37,13 +37,13 @@ export default class PostView extends Vue {
     this.$router.back()
   }
   postUrl (cid: string) {
-    console.log(this.$route)
+    // console.log(this.$route)
     return `https://ipfs.io/ipfs/${cid}/index.md`
   }
 
   base (subPath: string) {
     const a = '../'.repeat(this.$route.path.substr(1).split('/').length-1)
-    console.log(a)
+    // console.log(a)
     // return a+subPath
     return a+subPath
   }

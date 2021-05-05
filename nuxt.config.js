@@ -7,7 +7,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - akibako-nuxt',
-    title: 'akibako koubou',
+    title: 'あきばこ工房',
     htmlAttrs: {
       lang: 'ja'
     },
@@ -33,7 +33,9 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    '~/assets/css/img.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -71,10 +73,10 @@ export default {
       const { $content } = require('@nuxt/content')
       // const conf = require('nuxt.config')
 
-      const files = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L', { deep: true }).only(['path']).fetch()
+      const files = await $content('ipfs', { deep: true }).only(['path']).fetch()
       // const files = await $content('posts').only(['path']).fetch()
 
-      const reg = /\/QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index/
+      const reg = /\/ipfs\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index/
       // const reg = new RegExp(`\/QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index`)
       // const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
       const reduce = files.reduce((p, c) => {
@@ -84,7 +86,7 @@ export default {
         }
         return p
       }, [])
-      console.log(reduce)
+      // console.log(reduce)
       return reduce
 /*
       const { $content } = require('@nuxt/content')
@@ -102,7 +104,8 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
     fullTextSearchFields: ['title', 'description'],
-    ipfsRoot: 'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L'
+    ipfsApiEndpoint: 'http://127.0.0.1:5002'
+    // ipfsRoot: 'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

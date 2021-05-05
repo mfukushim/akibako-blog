@@ -65,12 +65,12 @@ export default class ImageStack extends Vue {
       }
       const period = 50000
 
-      console.log(this.$refs.layer)
+      // console.log(this.$refs.layer)
       if (this.$refs.layer) {
         const layer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
-        console.log(layer)
+        // console.log(layer)
         const anim = new Konva.Animation((frame) => {
-          console.log(frame)
+          // console.log(frame)
           if (frame) {
             layer.children.each(child => {
               child.x(this.configKonva.width * 0.4 + this.configKonva.width * 0.4 *

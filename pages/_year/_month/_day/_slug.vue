@@ -14,10 +14,10 @@ export default class slug extends Vue {
     $config,
     params
   }: Context) {
-    const post = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
+    const post = await $content('ipfs/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
     // const post = await $content('posts', `${params.year}-${params.month}-${params.day}-${params.slug}` || 'index').fetch()
     // const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{ deep: true}).sortBy('date', 'desc').limit(5)
-console.log(post)
+// console.log(post)
     return { post,params }
   }
 

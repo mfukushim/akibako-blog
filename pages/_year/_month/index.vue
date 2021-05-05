@@ -52,7 +52,7 @@ export default class dateIndex extends Vue {
     params
   }: Context) {
     // const post = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
-    const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{deep: true}).where({
+    const query = $content('ipfs',{deep: true}).where({
       date: { $between: [`${params.year}-${params.month}-01`, `${params.year}-${params.month}-31`] }
     }).sortBy('date', 'asc')
     const posts = await query.fetch()

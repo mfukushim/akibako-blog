@@ -67,7 +67,7 @@ export default class dateIndex extends Vue {
   }: Context) {
     // const post = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
 
-    const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{deep:true}).where({
+    const query = $content('ipfs',{deep:true}).where({
       date: { $eq :`${params.year}-${params.month}-${params.day}` }
     }).sortBy('date', 'desc')
     const posts = await query.fetch()
@@ -90,9 +90,9 @@ export default class dateIndex extends Vue {
 
   next () {
     if (this.year && this.month) {
-      console.log(this.day)
+      // console.log(this.day)
       const p = dayjs(`${this.year}-${this.month}-${this.day}`).add(1,'day')
-      console.log(p)
+      // console.log(p)
       this.$router.push(`/${p?.year()}/${p?.month()+1}/${( '00' + (p?.date())).slice( -2 )}`)
     }
   }
