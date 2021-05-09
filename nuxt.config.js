@@ -64,7 +64,7 @@ export default {
     }]
   ],
   publicRuntimeConfig: {
-    ipfsRoot: 'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L'
+    ipfsRoot: 'bafyreighellwstevjhzeow5ktf3sn3sdgivscqdebbu5i6375xzlilhcle'
   },
 
   generate: {

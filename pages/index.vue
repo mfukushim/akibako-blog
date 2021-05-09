@@ -25,11 +25,13 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="10" md="10">
         <v-card>
-          <v-card-actions>
-            <span>Current articles root (markdown)</span>
-            <v-btn class="ma-1" outlined target="_blank" small style="text-transform: none" :href="rootUrl">
-              <v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg"></v-img>{{ipfsRoot}}</v-btn>
-          </v-card-actions>
+          <v-card-title>
+            Current articles root (markdown)
+            <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg"></v-img>{{ipfsRoot}}
+          </v-card-title>
+          <v-card-text>
+            This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
+          </v-card-text>
         </v-card>
         <v-card>
           <v-card-title class="text-body-1">
@@ -41,15 +43,14 @@
             </p>
             <p>なんとか動いた機能</p>
             <p>カスタマイズしたNuxt/Contentで直接ipfs上のマークダウンのブログ文書ツリーを読んで、静的サイトをビルド</p>
+            <p>マークダウンのルートcidと静的ビルドトップディレクトリのルートcidの管理の単純化</p>
             <p>
               検討中機能
             </p>
-            <p>トップページもマークダウンで書けるように。マークダウンのルートcidと静的ビルドトップディレクトリのルートcidの管理の単純化</p>
+            <p>トップページもマークダウンで書けるように。</p>
             <p>エクスポートした静的コンテンツの自動ipfs登録/ピン付けと旧コンテンツピン外し。本文マークダウン側のipfsでの履歴記録と履歴蓄積/リンク。マークダウン追加の自動化と静的ビルドの自動化。</p>
             <p>個人マネージメントツールの連動</p>
           </v-card-text>
-          <v-card-actions>
-          </v-card-actions>
         </v-card>
         <div class="text-center text-h4 ma-2">Recent</div>
         <v-expansion-panels v-model="openedItem">
