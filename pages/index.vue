@@ -58,7 +58,6 @@
             v-for="(b,index) in links" :key="b.slug"
           >
             <v-expansion-panel-header>
-<!--              <PostItem v-if="index !== openedItem" :article="b" :no-link="true"></PostItem>-->
               <v-card v-if="index !== openedItem">
                 <div class="d-flex flex-no-wrap  flex-row">
                   <div class="d-flex flex-column">
