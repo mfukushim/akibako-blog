@@ -1,0 +1,3 @@
+[submodule "custom-content"]
+	path = custom-content
+	url = https://github.com/mfukushim/content.git
