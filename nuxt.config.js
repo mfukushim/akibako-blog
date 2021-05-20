@@ -20,7 +20,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: ''
+        content: 'I read in a book when I was young that \'software without bugs is obsolete software\'. A colleague once told me, \'You seem to be channeling your PC\'.'
       }
     ],
     link: [
@@ -59,26 +59,20 @@ export default {
     // 'nuxt-content',
     '@nuxt/content',
     ['@nuxtjs/google-adsense', {
-      id: 'ca-pub-8656421186521759',
+      id: process.env.ADSENSE,
       test: false
     }]
   ],
   publicRuntimeConfig: {
+    //  hard code for deploy
     ipfsRoot: 'bafyreihjx7cqo74qmepbbwzd3vqnanq77tbdxnxgfyxigxattz7oo25nby'
   },
 
   generate: {
-    routes: async function () { //  { $config: { ipfsRoot } }
-      // const { $content } = require('nuxt-content')
+    routes: async function () {
       const { $content } = require('@nuxt/content')
-      // const conf = require('nuxt.config')
-
       const files = await $content('ipfs', { deep: true }).only(['path']).fetch()
-      // const files = await $content('posts').only(['path']).fetch()
-
       const reg = /\/ipfs\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index/
-      // const reg = new RegExp(`\/QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index`)
-      // const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
       const reduce = files.reduce((p, c) => {
         const m = c.path.match(reg)
         if (m) {
@@ -86,26 +80,12 @@ export default {
         }
         return p
       }, [])
-      // console.log(reduce)
       return reduce
-/*
-      const { $content } = require('@nuxt/content')
-      const files = await $content('posts').only(['path']).fetch()
-      const reg = /\/posts\/(\d{4})-(\d{2})-(\d{2})-(.+)/
-      const map = files.map((file) => {
-        const m = file.path.match(reg)
-        return m ? `/${m[1]}/${m[2]}/${m[3]}/${m[4]}` : null
-      })
-      console.log(map)
-      return map
-*/
     }
   },
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
     fullTextSearchFields: ['title', 'description'],
-    ipfsApiEndpoint: 'http://127.0.0.1:5002'
-    // ipfsRoot: 'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -135,7 +115,7 @@ export default {
   build: {},
   googleAnalytics: {
     // Options
-    id: 'UA-55797371-4'
+    id: process.env.ANALYTICS
   }
 
 }
