@@ -51,20 +51,16 @@ export default class Search extends Vue {
   queryText:string = ""
   $content:any
 
-  // @Watch("queryText")
   async query () {
     if (!this.queryText) {
       this.links = []
       return
     }
-    //'QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'
     const posts = await this.$content('ipfs',{deep: true})
-      // .only(['title', 'description'])
       .sortBy('date', 'desc')
       .limit(12)
       .search(this.queryText+" ")
       .fetch()
-    // console.log(posts)
     this.links = Common.getPostList(posts)
   }
 
