@@ -65,7 +65,7 @@ export default {
   ],
   publicRuntimeConfig: {
     //  hard code for deploy
-    ipfsRoot: 'bafyreihjx7cqo74qmepbbwzd3vqnanq77tbdxnxgfyxigxattz7oo25nby'
+    ipfsRoot: 'bafyreihf3nh767ml5ovtl4wlfoo2wmlrozfa6pl6cgywr53josdpfwm7ki'
   },
 
   generate: {
