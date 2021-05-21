@@ -21,11 +21,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { BlogInfo } from '~/services/Common'
-import DateIndex from '~/pages/_year/_month/_day/index.vue'
+// import DateIndex from '~/pages/_year/_month/_day/index.vue'
 
 @Component({
   name: 'PostItem',
-  components: { DateIndex }
+  // components: { DateIndex }
 })
 export default class PostItem extends Vue {
   @Prop()
