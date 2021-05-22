@@ -4,12 +4,6 @@ name: CI
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the for_deploy branch
-  push:
-    branches: [ for_deploy ]
-  pull_request:
-    branches: [ for_deploy ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
