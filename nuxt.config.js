@@ -12,7 +12,7 @@ export default {
       lang: 'ja'
     },
     meta: [
-      { charset: 'utf-8' },
+      {charset: 'utf-8'},
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1'
@@ -69,8 +69,8 @@ export default {
 
   generate: {
     routes: async function () {
-      const { $content } = require('@nuxt/content')
-      const files = await $content('ipfs', { deep: true }).only(['path']).fetch()
+      const {$content} = require('@nuxt/content')
+      const files = await $content('ipfs', {deep: true}).only(['path']).fetch()
       const reg = /\/ipfs\/(\d{4})-(\d{2})-(\d{2})-(.+)\/index/
       const reduce = files.reduce((p, c) => {
         const m = c.path.match(reg)
@@ -117,5 +117,4 @@ export default {
     // Options
     id: process.env.ANALYTICS
   }
-
 }

@@ -93,3 +93,6 @@ sw.*
 /content/posts/
 /bak_posts/
 /content/
+
+# Local Netlify folder
+.netlify
