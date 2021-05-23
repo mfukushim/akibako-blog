@@ -6,8 +6,6 @@
         v-for="(item,i) in items"
         :key="i"
         :src="item"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
       >
         <v-row
           class="fill-height"
@@ -166,7 +164,7 @@ export default class index extends Vue {
   today?: string
   ad?: string
 
-  items: string[] = [...new Array(7).keys()].map(value => `${process.env.STATIC_STORE}/${value.toString().padStart(2, '0')}.jpg`)
+  items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 
   async asyncData({
                     $content,
@@ -184,6 +182,9 @@ export default class index extends Vue {
     const posts = await query.fetch()
     const links = Common.getPostList(posts)
     const ad = process.env.AD_SLOT
+    // const a = [...new Array(7).keys()].map(value => `${$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
+    // console.log('q:'+a)
+
     const today = dayjs().format('/YYYY/MM')
     return {
       links,
@@ -197,6 +198,12 @@ export default class index extends Vue {
 
   postUrl(info: BlogInfo) {
     return `https://ipfs.io/ipfs/${info.cid}/index.md`
+  }
+
+  mounted() {
+    // const a = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
+    // console.log('mounted:'+a)
+    // this.items = a
   }
 }
 </script>

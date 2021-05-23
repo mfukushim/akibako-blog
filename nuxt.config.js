@@ -63,7 +63,8 @@ export default {
     }]
   ],
   publicRuntimeConfig: {
-    ipfsRoot: process.env.ROOT_CID
+    ipfsRoot: process.env.ROOT_CID,
+    staticStore: process.env.STATIC_STORE
   },
 
   generate: {
