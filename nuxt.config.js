@@ -56,16 +56,14 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/content
-    // 'nuxt-content',
     '@nuxt/content',
     ['@nuxtjs/google-adsense', {
       id: process.env.ADSENSE,
-      test: false
+      test: true
     }]
   ],
   publicRuntimeConfig: {
-    //  hard code for deploy
-    ipfsRoot: 'bafyreihf3nh767ml5ovtl4wlfoo2wmlrozfa6pl6cgywr53josdpfwm7ki'
+    ipfsRoot: process.env.ROOT_CID
   },
 
   generate: {
@@ -86,13 +84,14 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
     fullTextSearchFields: ['title', 'description'],
+    ipfsApiEndpoint: process.env.API_ENDPOINT
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,

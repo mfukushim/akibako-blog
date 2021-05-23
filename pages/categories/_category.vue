@@ -5,16 +5,18 @@
         Category : {{ params.category }}
       </v-col>
       <v-col cols="1" class="text-right">
-        <v-icon class="primary" @click="back">mdi-keyboard-return</v-icon>
+        <v-btn @click="back" fab dark color="blue">
+          <v-icon >mdi-keyboard-return</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
-    <v-list>
+    <v-list dense>
       <v-list-item
         v-for="b in links" :key="b.slug"
       >
-        <v-list-item-title>
+        <v-list-item-content>
           <PostItem :article="b"></PostItem>
-        </v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
     </v-list>
   </div>
@@ -30,15 +32,13 @@ import { BlogInfo, Common } from '~/services/Common'
 export default class Category extends Vue {
   links?: BlogInfo[]
   params?: any
-  title?=""
+  title? = ''
 
   async asyncData ({
     $content,
     params
   }: Context) {
-    // console.log()
-    // const post = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
-    const query = $content('ipfs',{deep: true}).where({
+    const query = $content('ipfs', { deep: true }).where({
       categories: { $contains: params.category }
     })
       .sortBy('date', 'desc')
@@ -51,6 +51,7 @@ export default class Category extends Vue {
       title
     }
   }
+
   back () {
     this.$router.back()
   }

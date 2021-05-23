@@ -3,7 +3,9 @@
     <v-card class="ma-2">
       <v-card-text>
         全文検索は文字単位検索のようなので語はヒットしないみたい。あとキーストロークの検出が微妙なので最後にスペースを入れたほうがうまく当たるかも。
-        <v-icon class="primary" @click="back">mdi-keyboard-return</v-icon>
+        <v-btn @click="back" fab small dark color="blue">
+          <v-icon >mdi-keyboard-return</v-icon>
+        </v-btn>
       </v-card-text>
       <v-card-actions>
         <v-text-field
@@ -22,14 +24,14 @@
       <v-col cols="1" class="text-right">
       </v-col>
     </v-row>-->
-    <v-list>
+    <v-list dense>
       <v-list-item
         v-for="(b,index) in links" :key="b.slug"
       >
-        <v-list-item-title >
+        <v-list-item-content >
           <v-divider v-if="index!==0"></v-divider>
           <PostItem :article="b"></PostItem>
-        </v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
     </v-list>
   </div>

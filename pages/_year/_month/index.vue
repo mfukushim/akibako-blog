@@ -12,16 +12,18 @@
         <v-btn small @click="next"><v-icon>mdi-chevron-right</v-icon></v-btn>
       </v-col>
       <v-col cols="1" class="text-right">
-        <v-icon class="primary" @click="back">mdi-keyboard-return</v-icon>
+        <v-btn @click="back" fab small dark color="blue">
+          <v-icon >mdi-keyboard-return</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
-    <v-list>
+    <v-list dense>
       <v-list-item
         v-for="b in links" :key="b.slug"
       >
-        <v-list-item-title>
+        <v-list-item-content>
           <PostItem :article="b" ></PostItem>
-        </v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
     </v-list>
     <div class="text-center">

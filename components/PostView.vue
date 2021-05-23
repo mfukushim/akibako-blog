@@ -3,7 +3,11 @@
     <div class="d-flex flex-no-wrap  flex-column">
       <div class="d-flex flex-row">
         <div class="text-h4 ma-1">{{ body.title }}</div>
-        <div class="d-flex ml-auto"><v-icon class="primary" @click="back">mdi-keyboard-return</v-icon></div>
+        <div class="d-flex ml-auto">
+          <v-btn @click="back" fab small dark color="blue">
+            <v-icon >mdi-keyboard-return</v-icon>
+          </v-btn>
+        </div>
       </div>
       <div class="d-flex flex-row">
       <div class="ma-2"><DateView :article="article"></DateView></div>

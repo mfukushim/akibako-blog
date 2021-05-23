@@ -1,8 +1,8 @@
 <template>
-  <v-card @click="jumpPage" >
+  <v-card @click="jumpPage" class="ma-1">
     <div class="d-flex flex-no-wrap  flex-row">
       <div class="d-flex flex-column">
-        <div class="text-subtitle-2 ma-2">{{ article.title }}</div>
+        <div class="text-subtitle-2 ma-2 font-weight-bold">{{ article.title }}</div>
         <div class="text-body-2 ma-1">{{ article.summary }}</div>
       </div>
       <div class="d-flex ml-auto ma-2">{{ article.date }}</div>

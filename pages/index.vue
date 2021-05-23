@@ -1,127 +1,158 @@
 <template>
   <div>
-<!--    <ImageStack></ImageStack>-->
-    <v-parallax
-      dark
-      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-    >
-      <v-row
-        align="center"
-        justify="center"
+    <!--    <ImageStack></ImageStack>-->
+    <v-carousel cycle dark hide-delimiters interval="20000">
+      <v-carousel-item
+        v-for="(item,i) in items"
+        :key="i"
+        :src="item"
+        reverse-transition="fade-transition"
+        transition="fade-transition"
       >
-        <v-col
-          class="text-center"
-          cols="12"
+        <v-row
+          class="fill-height"
+          align="center"
+          justify="center"
         >
-          <h1 class="display-1 font-weight-thin mb-4">
-            あきばこ工房
-          </h1>
-          <h4 class="text-subtitle-1"></h4>
-          <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
-          <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
-        </v-col>
-      </v-row>
-    </v-parallax>
-    <v-row justify="center" align="center">
-      <v-col cols="12" sm="10" md="10">
-        <v-card>
-          <v-card-title>
-            Current articles root (markdown)
-            <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg"></v-img>{{ipfsRoot}}
-          </v-card-title>
-          <v-card-text>
-            This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
-          </v-card-text>
-        </v-card>
-        <v-card>
-          <v-card-title class="text-body-1">
-            ブログ改装 評価中 ipfs 連動組み込み中
-          </v-card-title>
-          <v-card-text>
-            <p>
-              ipfsだと近くにコンテンツが来ていないとかなり重いみたい。その場合、画像が出なかったりページが出なかったりするみたいなので、今のところはそこは仕方が無いということで。リロードより長時間待つほうが効果があるかも(長く待ったらリロードは必要なのだが。。。)
-            </p>
-            <p>なんとか動いた機能</p>
-            <p>カスタマイズしたNuxt/Contentで直接ipfs上のマークダウンのブログ文書ツリーを読んで、静的サイトをビルド</p>
-            <p>マークダウンのルートcidと静的ビルドトップディレクトリのルートcidの管理の単純化</p>
-            <p>
-              検討中機能
-            </p>
-            <p>トップページもマークダウンで書けるように。</p>
-            <p>エクスポートした静的コンテンツの自動ipfs登録/ピン付けと旧コンテンツピン外し。本文マークダウン側のipfsでの履歴記録と履歴蓄積/リンク。マークダウン追加の自動化と静的ビルドの自動化。</p>
-            <p>個人マネージメントツールの連動</p>
-          </v-card-text>
-        </v-card>
-        <div class="text-center text-h4 ma-2">Recent</div>
-        <v-expansion-panels v-model="openedItem">
-          <v-expansion-panel
-            v-for="(b,index) in links" :key="b.slug"
+          <v-col
+            class="text-right white--text"
+            cols="12"
+            align-self="end"
           >
-            <v-expansion-panel-header>
-              <v-card v-if="index !== openedItem">
-                <div class="d-flex flex-no-wrap  flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-subtitle-2 ma-2">{{ b.title }}</div>
-                    <div class="text-body-2 ma-1">{{ b.summary }}</div>
-                  </div>
-                  <div class="d-flex ml-auto ma-2">{{ b.date }}</div>
-                  <v-avatar
-                    class="ma-3"
-                    size="96"
-                    tile
-                    v-if="b.image"
-                  >
-                    <v-img :src="b.image"></v-img>
-                  </v-avatar>
-                </div>
-              </v-card>
-
-              <v-row v-else>
-                <v-col cols="10">
-                  <v-row class="h2 pa-1">{{ b.title }}
-                  </v-row>
-                  <v-row>
-                    <nuxt-link :to="b.year" class="h5 pa-1">
-                      <v-chip>
-                        {{ b.year }}
-                      </v-chip>
-                    </nuxt-link>
-                    <nuxt-link :to="`/${b.year}/${b.month}`" class="h5 pa-1">
-                      <v-chip>
-                        {{ b.month }}- {{ b.day }}
-                      </v-chip>
-                    </nuxt-link>
-                    <v-spacer></v-spacer>
-                    <v-btn outlined target="_blank" small style="text-transform: none" :href="postUrl(b)"><v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg"></v-img>{{b.cid}}</v-btn>
-                  </v-row>
-                </v-col>
-                <v-col cols="2">
-                  <nuxt-link :to="`/${b.year}/${b.month}/${b.day}/${b.link}`" style="text-decoration: none;">
-                    <v-btn small color="gray" >
-                      <v-icon small dark left>
-                        mdi-arrow-right
-                      </v-icon>
-                      Detail
-                    </v-btn>
-                  </nuxt-link>
-                </v-col>
-              </v-row>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <nuxt-content :document="b.post"/>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <adsbygoogle />
+            <h1 class="display-1 font-weight-thin mb-4 ma-2">
+              あきばこ工房
+            </h1>
+            <h4 class="text-subtitle-2 ma-2">
+              <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
+              <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
+            </h4>
+          </v-col>
+        </v-row>
+      </v-carousel-item>
+    </v-carousel>
+    <v-row justify="center" align="center" class="ma-2">
+      <v-col>
+        <nuxt-content :document="head[0]"/>
       </v-col>
+    </v-row>
+    <v-row justify="center" align="center">
+      <div class="text-center text-h4 ma-2">
+        Recent
+      </div>
+      <v-expansion-panels v-model="openedItem" class="ma-3">
+        <v-expansion-panel
+          v-for="(b,index) in links"
+          :key="b.slug"
+        >
+          <v-expansion-panel-header>
+            <div v-if="index !== openedItem">
+              <div class="d-flex flex-no-wrap  flex-row">
+                <div class="d-flex flex-column">
+                  <div class="text-subtitle-1 ma-2 font-weight-bold">
+                    {{ b.title }}
+                  </div>
+                  <div class="text-body-2 ma-1">
+                    {{ b.summary }}
+                  </div>
+                </div>
+                <div class="d-flex ml-auto ma-2">
+                  {{ b.date }}
+                </div>
+                <v-avatar
+                  v-if="b.image"
+                  class="ma-3"
+                  size="96"
+                  tile
+                >
+                  <v-img :src="b.image"/>
+                </v-avatar>
+              </div>
+            </div>
+            <v-row v-else>
+              <v-col cols="10">
+                <v-row class="h2 pa-1 font-weight-bold">
+                  {{ b.title }}
+                </v-row>
+                <v-row>
+                  <nuxt-link :to="b.year" class="h5 pa-1">
+                    <v-chip>
+                      {{ b.year }}
+                    </v-chip>
+                  </nuxt-link>
+                  <nuxt-link :to="`/${b.year}/${b.month}`" class="h5 pa-1">
+                    <v-chip>
+                      {{ b.month }}- {{ b.day }}
+                    </v-chip>
+                  </nuxt-link>
+                  <v-spacer/>
+                  <v-btn outlined target="_blank" small style="text-transform: none" :href="postUrl(b)">
+                    <v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
+                    {{ b.cid }}
+                  </v-btn>
+                </v-row>
+              </v-col>
+              <v-col cols="2">
+                <nuxt-link :to="`/${b.year}/${b.month}/${b.day}/${b.link}`" style="text-decoration: none;">
+                  <v-btn small color="gray">
+                    <v-icon small dark left>
+                      mdi-arrow-right
+                    </v-icon>
+                    Detail
+                  </v-btn>
+                </nuxt-link>
+              </v-col>
+            </v-row>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <nuxt-content :document="b.post"/>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-row>
+    <v-row justify="center" align="center">
+      <adsbygoogle :ad-slot="ad"/>
+      <nuxt-link :to="today" style="text-decoration: none;">
+        <v-btn small color="gray" class="ma-3">
+          This month
+        </v-btn>
+      </nuxt-link>
+    </v-row>
+    <v-row>
+      <v-col cols="1">
+        <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
+      </v-col>
+      <v-col cols="10" class="caption">
+        <div>{{ ipfsRoot }}</div>
+        Current articles root (markdown)
+        This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-card>
+        <v-card-actions>
+          <v-btn
+            icon
+            href="https://twitter.com/coronahope"
+            color="grey"
+          >
+            <v-icon>mdi-twitter</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
     </v-row>
   </div>
 </template>
 
 <script lang="ts">
-import { Context } from '@nuxt/types'
-import { Component, Vue } from 'nuxt-property-decorator'
-import { BlogInfo, Common } from '~/services/Common'
+import {Context} from '@nuxt/types'
+import {Component, Vue} from 'nuxt-property-decorator'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import {BlogInfo, Common} from '~/services/Common'
+// import axios from 'axios'
+
+dayjs.extend(timezone)
+dayjs.tz.setDefault('Asia/Tokyo')
 
 @Component({
   name: 'index'
@@ -129,30 +160,42 @@ import { BlogInfo, Common } from '~/services/Common'
 export default class index extends Vue {
   openedItem: number | null = null
   links?: BlogInfo[]
-  ipfsRoot?:string
+  ipfsRoot?: string
   rootUrl?: string
+  head?: any
+  today?: string
+  ad?: string
 
-  async asyncData ({
-    $content,
-    $config
-  }: Context) {  //: Context
-    // const a = app
-    // console.log(a) $config.ipfsRoot
-    const query = $content('ipfs',{ deep: true}).sortBy('date', 'desc').limit(5)
-    // const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{ deep: true}).sortBy('date', 'desc').limit(5)
-    // const query = $content('posts' || 'index').sortBy('date', 'desc').limit(5)
+  items: string[] = [...new Array(7).keys()].map(value => `${process.env.STATIC_STORE}/${value.toString().padStart(2, '0')}.jpg`)
+
+  async asyncData({
+                    $content,
+                    $config
+                  }: Context) {
+    const headQuery = $content('ipfs', {deep: true}).where({
+      categories: {$contains: 'head'}
+    }).sortBy('date', 'desc').limit(1)
+    const headPosts = await headQuery.fetch()
+    const head = headPosts
+
+    const query = $content('ipfs', {deep: true}).where({
+      categories: {$containsNone: 'head'}
+    }).sortBy('date', 'desc').limit(5)
     const posts = await query.fetch()
     const links = Common.getPostList(posts)
-    // console.log(links)
-    return { links, ipfsRoot: $config.ipfsRoot,rootUrl: `https://ipfs.io/ipfs/${$config.ipfsRoot}` }
+    const ad = process.env.AD_SLOT
+    const today = dayjs().format('/YYYY/MM')
+    return {
+      links,
+      ipfsRoot: $config.ipfsRoot,
+      rootUrl: `https://ipfs.io/ipfs/${$config.ipfsRoot}`,
+      head,
+      ad,
+      today
+    }
   }
 
-  // imageUrl (info: BlogInfo) {
-  //   return `https://ipfs.io/ipfs/${info.cid}/${info.image}`
-  //   // return `https://ipfs.io/ipfs/${info.cid}/${info.date}-${info.link}/${info.image}`
-  // }
-
-  postUrl (info: BlogInfo) {
+  postUrl(info: BlogInfo) {
     return `https://ipfs.io/ipfs/${info.cid}/index.md`
   }
 }
