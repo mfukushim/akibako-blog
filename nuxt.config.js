@@ -59,12 +59,13 @@ export default {
     '@nuxt/content',
     ['@nuxtjs/google-adsense', {
       id: process.env.ADSENSE,
-      test: true
+      test: false
     }]
   ],
   publicRuntimeConfig: {
     ipfsRoot: process.env.ROOT_CID,
-    staticStore: process.env.STATIC_STORE
+    staticStore: process.env.STATIC_STORE,
+    netlifyBatch: process.env.NETLIFY_BATCH
   },
 
   generate: {

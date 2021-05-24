@@ -41,7 +41,6 @@ export default class PostView extends Vue {
     this.$router.back()
   }
   postUrl (cid: string) {
-    // console.log(this.$route)
     return `https://ipfs.io/ipfs/${cid}/index.md`
   }
 

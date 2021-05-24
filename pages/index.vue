@@ -6,6 +6,8 @@
         v-for="(item,i) in items"
         :key="i"
         :src="item"
+        reverse-transition="fade-transition"
+        transition="fade-transition"
       >
         <v-row
           class="fill-height"
@@ -125,8 +127,8 @@
         This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
       </v-col>
     </v-row>
-    <v-row>
-      <v-card>
+    <v-row class="pa-3">
+      <v-card class="ma-1">
         <v-card-actions>
           <v-btn
             icon
@@ -135,6 +137,11 @@
           >
             <v-icon>mdi-twitter</v-icon>
           </v-btn>
+        </v-card-actions>
+      </v-card>
+      <v-card class="ma-1">
+        <v-card-actions>
+          <v-img :src="netlifyBatch"></v-img>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -163,6 +170,7 @@ export default class index extends Vue {
   head?: any
   today?: string
   ad?: string
+  netlifyBatch?: string
 
   items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 
@@ -173,8 +181,7 @@ export default class index extends Vue {
     const headQuery = $content('ipfs', {deep: true}).where({
       categories: {$contains: 'head'}
     }).sortBy('date', 'desc').limit(1)
-    const headPosts = await headQuery.fetch()
-    const head = headPosts
+    const head = await headQuery.fetch()
 
     const query = $content('ipfs', {deep: true}).where({
       categories: {$containsNone: 'head'}
@@ -182,6 +189,7 @@ export default class index extends Vue {
     const posts = await query.fetch()
     const links = Common.getPostList(posts)
     const ad = process.env.AD_SLOT
+    const netlifyBatch = this.$config.netlifyBatch
     // const a = [...new Array(7).keys()].map(value => `${$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
     // console.log('q:'+a)
 
@@ -192,7 +200,8 @@ export default class index extends Vue {
       rootUrl: `https://ipfs.io/ipfs/${$config.ipfsRoot}`,
       head,
       ad,
-      today
+      today,
+      netlifyBatch
     }
   }
 

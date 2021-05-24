@@ -12,7 +12,7 @@
       </v-col>
       <v-col cols="1" class="text-right">
         <v-btn @click="back" fab small dark color="blue">
-          <v-icon >mdi-keyboard-return</v-icon>
+          <v-icon>mdi-keyboard-return</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -21,7 +21,7 @@
         v-for="bw in links" :key="bw.b ? bw.b.slug : bw.m"
       >
         <v-list-item-content>
-          <PostItem v-if="bw.b" :article="bw.b" ></PostItem>
+          <PostItem v-if="bw.b" :article="bw.b"></PostItem>
           <div v-else>
             <nuxt-link :to="`/${year}/${bw.m}`">
               <v-chip>{{ year }} - {{ bw.m }}</v-chip>
@@ -34,9 +34,9 @@
   </div>
 </template>
 <script lang="ts">
-import { Context } from '@nuxt/types'
-import { Component, Vue } from 'nuxt-property-decorator'
-import { BlogInfo, Common } from '~/services/Common'
+import {Context} from '@nuxt/types'
+import {Component, Vue} from 'nuxt-property-decorator'
+import {BlogInfo, Common} from '~/services/Common'
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 
@@ -51,13 +51,15 @@ export default class dateIndex extends Vue {
   params?: any
   year?: string
 
-  async asyncData ({
-    $content,
-    params
-  }: Context) {
-    // const post = await $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
-    const query = $content('ipfs',{deep: true}).where({
-      date: { $between: [`${params.year}-01-01`, `${params.year}-12-31`] }
+  async asyncData({
+                    $content,
+                    params
+                  }: Context) {
+    const query = $content('ipfs', {deep: true}).where({
+      $and: [
+        {date: {$between: [`${params.year}-01-01`, `${params.year}-12-31`]}}
+        , {categories: {$containsNone: 'head'}}
+      ]
     }).sortBy('date', 'asc')
     const posts = await query.fetch()
     const links = Common.getPostList(posts).reduce((p: { m?: string, b?: BlogInfo }[], c: BlogInfo) => {
@@ -80,18 +82,18 @@ export default class dateIndex extends Vue {
     }
   }
 
-  back () {
+  back() {
     this.$router.back()
   }
 
-  prev () {
+  prev() {
     if (this.year) {
       const p = dayjs(`${this.year}-01-10`).subtract(1, 'year')  //  timezone差を出さないため10
       this.$router.push(`/${p?.year()}`)
     }
   }
 
-  next () {
+  next() {
     if (this.year) {
       const p = dayjs(`${this.year}-01-10`).add(1, 'year')
       this.$router.push(`/${p?.year()}`)
