@@ -110,7 +110,6 @@
       </v-expansion-panels>
     </v-row>
     <v-row justify="center" align="center">
-      <adsbygoogle :ad-slot="ad"/>
       <nuxt-link :to="today" style="text-decoration: none;">
         <v-btn small color="gray" class="ma-3">
           This month
@@ -139,12 +138,8 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <v-card class="ma-1">
-        <v-card-actions>
-          <v-img :src="netlifyBatch"></v-img>
-        </v-card-actions>
-      </v-card>
     </v-row>
+    <adsbygoogle :ad-slot="ad"/>
   </div>
 </template>
 
@@ -154,7 +149,6 @@ import {Component, Vue} from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import {BlogInfo, Common} from '~/services/Common'
-// import axios from 'axios'
 
 dayjs.extend(timezone)
 dayjs.tz.setDefault('Asia/Tokyo')
@@ -170,7 +164,6 @@ export default class index extends Vue {
   head?: any
   today?: string
   ad?: string
-  netlifyBatch?: string
 
   items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 
@@ -189,9 +182,6 @@ export default class index extends Vue {
     const posts = await query.fetch()
     const links = Common.getPostList(posts)
     const ad = process.env.AD_SLOT
-    const netlifyBatch = this.$config.netlifyBatch
-    // const a = [...new Array(7).keys()].map(value => `${$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
-    // console.log('q:'+a)
 
     const today = dayjs().format('/YYYY/MM')
     return {
@@ -200,8 +190,7 @@ export default class index extends Vue {
       rootUrl: `https://ipfs.io/ipfs/${$config.ipfsRoot}`,
       head,
       ad,
-      today,
-      netlifyBatch
+      today
     }
   }
 
