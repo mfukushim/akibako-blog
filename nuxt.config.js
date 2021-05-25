@@ -50,7 +50,8 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
     // '@nuxtjs/router',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -64,8 +65,7 @@ export default {
   ],
   publicRuntimeConfig: {
     ipfsRoot: process.env.ROOT_CID,
-    staticStore: process.env.STATIC_STORE,
-    netlifyBatch: process.env.NETLIFY_BATCH
+    staticStore: process.env.STATIC_STORE || '',
   },
 
   generate: {
