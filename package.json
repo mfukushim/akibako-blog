@@ -11,7 +11,8 @@
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
     "test": "jest",
-    "relative": "cd dist && npx all-relative"
+    "relative": "cd dist && npx all-relative",
+    "deploy": "netlify deploy --prod"
   },
   "dependencies": {
     "@lokidb/full-text-search": "^2.1.0",
