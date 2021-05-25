@@ -31,7 +31,11 @@
       </v-carousel-item>
     </v-carousel>
     <v-row justify="center" align="center" class="ma-2">
-      <v-col>
+      <v-col class="text-center" cols="12">
+      しばらくは並立予定
+      従来サイト <a href="https://prev.akibakokoubou.jp/">https://prev.akibakokoubou.jp/</a>
+      </v-col>
+      <v-col cols="12">
         <nuxt-content :document="head[0]"/>
       </v-col>
     </v-row>
