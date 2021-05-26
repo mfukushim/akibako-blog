@@ -12,7 +12,7 @@ import { BlogInfo, Common } from '~/services/Common'
 })
 export default class Category0 extends Vue {
 
-  fetch({ redirect,params }) {
+  fetch({ redirect,params }:any) {
     redirect(301, `/categories/${params.category}/1`)
   }
 

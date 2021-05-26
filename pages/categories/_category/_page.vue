@@ -92,7 +92,7 @@ export default class Category extends Vue {
   nextPage() {
     if (this.page) {
       const next = this.page++;
-      if (next <= this.maxPage) {
+      if (this.maxPage && next <= this.maxPage) {
         this.inputPage(next)
       }
     }
