@@ -1,5 +1,14 @@
 
 div.nuxt-content img {
-  max-width: 100%;
+  max-width: 60%;
+  display: block;
+  margin: auto;
   height: auto;
+}
+
+@media screen and(max-width: 960px) {
+  div.nuxt-content img {
+    max-width: 100%;
+    height: auto;
+  }
 }

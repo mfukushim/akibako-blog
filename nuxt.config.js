@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  // target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -86,7 +86,7 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
     fullTextSearchFields: ['title', 'description'],
-    ipfsApiEndpoint: process.env.API_ENDPOINT
+    // ipfsApiEndpoint: process.env.API_ENDPOINT
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
