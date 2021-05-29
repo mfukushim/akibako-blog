@@ -2,14 +2,15 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  // target: 'static',
+  target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - akibako-nuxt',
+    titleTemplate: '%s - akibako-koubou',
     title: 'あきばこ工房',
     htmlAttrs: {
-      lang: 'ja'
+      lang: 'ja',
+      prefix: 'og: http://ogp.me/ns#'
     },
     meta: [
       {charset: 'utf-8'},
@@ -21,7 +22,11 @@ export default {
         hid: 'description',
         name: 'description',
         content: 'I read in a book when I was young that \'software without bugs is obsolete software\'. A colleague once told me, \'You seem to be channeling your PC\'.'
-      }
+      },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Akibako-koubou' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: 'https://akibakokoubou.jp' },
+      { name: 'twitter:card', content: 'summary_large_image' }
     ],
     link: [
       {
@@ -86,7 +91,7 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
     fullTextSearchFields: ['title', 'description'],
-    // ipfsApiEndpoint: process.env.API_ENDPOINT
+    ipfsApiEndpoint: process.env.API_ENDPOINT
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
