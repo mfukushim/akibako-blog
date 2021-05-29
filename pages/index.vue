@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--    <ImageStack></ImageStack>-->
+        <ImageStack :storeUrl="$config.staticStore"></ImageStack>
     <v-carousel cycle dark hide-delimiters interval="20000">
       <v-carousel-item
         v-for="(item,i) in items"
@@ -32,8 +32,6 @@
     </v-carousel>
     <v-row justify="center" align="center" class="ma-2">
       <v-col class="text-center" cols="12">
-      しばらくは並立予定
-      従来サイト <a href="https://prev.akibakokoubou.jp/">https://prev.akibakokoubou.jp/</a>
       </v-col>
       <v-col cols="12">
         <nuxt-content :document="head[0]"/>
@@ -140,6 +138,13 @@
           >
             <v-icon>mdi-twitter</v-icon>
           </v-btn>
+          <v-btn
+            icon
+            href="https://github.com/mfukushim"
+            color="grey"
+          >
+            <v-icon>mdi-github</v-icon>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -200,12 +205,6 @@ export default class index extends Vue {
 
   postUrl(info: BlogInfo) {
     return `https://ipfs.io/ipfs/${info.cid}/index.md`
-  }
-
-  mounted() {
-    // const a = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
-    // console.log('mounted:'+a)
-    // this.items = a
   }
 }
 </script>

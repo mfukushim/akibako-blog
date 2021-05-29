@@ -34,8 +34,8 @@ export default class PostView extends Vue {
   body:any
 
   @Prop()
-  article:BlogInfo | undefined
-  show = true //false
+  article?:BlogInfo
+  show = true
 
   back () {
     this.$router.back()
@@ -46,8 +46,6 @@ export default class PostView extends Vue {
 
   base (subPath: string) {
     const a = '../'.repeat(this.$route.path.substr(1).split('/').length-1)
-    // console.log(a)
-    // return a+subPath
     return a+subPath
   }
 

@@ -4,22 +4,35 @@
 <script lang="ts">
 import { Context } from '@nuxt/types'
 import { Component, Vue } from 'nuxt-property-decorator'
+import {Common} from "~/services/Common";
 
 @Component({
   name: 'slug'
 })
 export default class slug extends Vue {
+  params?: any
+  post?:any
+
   async asyncData ({
     $content,
-    $config,
     params
   }: Context) {
     const post = await $content('ipfs/'+ `${params.year}-${params.month}-${params.day}-${params.slug}`+'/index').fetch()
-    // const post = await $content('posts', `${params.year}-${params.month}-${params.day}-${params.slug}` || 'index').fetch()
-    // const query = $content('QmXHFDwTgDALHWf5dvTvfKEGHALfE4ecqdYJJAMrEuA62L',{ deep: true}).sortBy('date', 'desc').limit(5)
-// console.log(post)
     return { post,params }
   }
+
+  head() {
+    const pick = Common.pickBody(this.post);
+    return {
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: this.post.title },
+        { hid: 'og:description', property: 'og:description', content: pick.summary },
+        { hid: 'og:image', property: 'og:image', content: pick.image || "" },
+      ]
+    }
+  }
+
+
 
 }
 /*
