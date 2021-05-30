@@ -69,6 +69,7 @@
           @input="datePick"
         ></v-date-picker>
       </v-list>
+      <mi-runner ></mi-runner>
     </v-navigation-drawer>
     <v-footer
       :absolute="!fixed"
@@ -81,9 +82,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import MiRunner from "~/components/MiRunner.vue";
 
 @Component({
-  name: 'index'
+  name: 'index',
+  components: {MiRunner}
 })
 export default class index extends Vue {
   clipped = false

@@ -1,21 +1,22 @@
 <template>
   <div>
-        <ImageStack :storeUrl="$config.staticStore"></ImageStack>
-    <v-carousel cycle dark hide-delimiters interval="20000">
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      >
+        <ImageStack :storeUrl="$config.staticStore">        </ImageStack>
+
+    <!--    <v-carousel cycle dark hide-delimiters interval="20000">-->
+<!--      <v-carousel-item-->
+<!--        v-for="(item,i) in items"-->
+<!--        :key="i"-->
+<!--        :src="item"-->
+<!--        reverse-transition="fade-transition"-->
+<!--        transition="fade-transition"-->
+<!--      >-->
         <v-row
           class="fill-height"
           align="center"
           justify="center"
         >
           <v-col
-            class="text-right white--text"
+            class="text-right black--text"
             cols="12"
             align-self="end"
           >
@@ -28,8 +29,8 @@
             </h4>
           </v-col>
         </v-row>
-      </v-carousel-item>
-    </v-carousel>
+<!--      </v-carousel-item>-->
+<!--    </v-carousel>-->
     <v-row justify="center" align="center" class="ma-2">
       <v-col class="text-center" cols="12">
       </v-col>

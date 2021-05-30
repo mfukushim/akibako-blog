@@ -3,14 +3,9 @@
     <no-ssr placeholder="Loading...">
       <v-stage :config="configKonva">
         <v-layer ref="layer">
-          <!--          <v-image :config="img"></v-image>-->
-          <v-text :config="{
-                  x: 25,
-                  y: 5,
-                  text: 'abc',
-                  fill: 'black'
-                }"></v-text>
-          <!--          <v-circle :config="configCircle"></v-circle>-->
+        </v-layer>
+        <v-layer>
+          <!--          <v-text :config="configText"></v-text>-->
         </v-layer>
       </v-stage>
     </no-ssr>
@@ -18,12 +13,9 @@
 </template>
 
 <script lang="ts">
-import {Context} from '@nuxt/types'
 import {Component, Prop, Vue} from 'nuxt-property-decorator'
-
 import VueKonva from 'vue-konva'
 import Konva from 'konva'
-import {Node} from "konva/types/Node";
 
 Vue.use(VueKonva)
 
@@ -33,14 +25,20 @@ Vue.use(VueKonva)
 export default class ImageStack extends Vue {
   @Prop()
   storeUrl?: string
+  baseLayer?: Konva.Layer
 
   configKonva = {
     width: 800,
-    height: 600
+    height: 300
   };
+  configText: Konva.TextConfig = {
+    x: 25,
+    y: 5,
+    text: 'あきばこ工房',
+    fontSize: 26,
+    fill: 'black'
+  }
   img: Konva.ImageConfig = {} as Konva.ImageConfig
-  imgObj?: Konva.Image
-  imgTween?: Konva.Tween
   imageList: HTMLImageElement[] = []
 
   mounted() {
@@ -50,110 +48,96 @@ export default class ImageStack extends Vue {
       Promise.all(Array.from(new Array(7).keys()).map(value => {
         return new Promise<HTMLImageElement>(resolve => {
           const image = new window.Image()
-          image.src = `${this.storeUrl}/${value.toString().padStart(2,'0')}.jpg`
+          image.src = `${this.storeUrl}/${value.toString().padStart(2, '0')}.jpg`
           return resolve(image)
         })
       })).then(value => {
         this.imageList = value
-        this.add(7)
+        this.add(0)
       })
       if (this.$refs.layer) {
-        const layer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
-        layer.clear()
+        this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
+        if (this.baseLayer) {
+          this.configKonva.width = this.baseLayer.width();
+          this.configText.x = this.baseLayer.width();
+
+        }
+        // this.baseLayer.clear()
       }
-      /*
-            const image = new window.Image()
-            image.src = `${this.storeUrl}/00.jpg`
-            image.onload = () => {
-              this.img = {
-                x: 400,
-                y: 400,
-                width: 200,
-                height: 200,
-                rotation: 45,
-                scale: {x: 3, y: 3},
-                opacity: 0,
-                // scale: scale,
-                image: image,
-                offset: {x: 100, y: 100}
-              }
-              // if (this.$refs.layer) {
-              const layer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
-              this.imgObj = new Konva.Image(this.img)
-              layer.add(this.imgObj)
-              this.imgTween = new Konva.Tween({
-                node: this.imgObj,
-                duration: 10,
-                scaleX: 1,
-                scaleY: 1,
-                easing: Konva.Easings.EaseIn,
-                onUpdate: () => {
-                },
-                onFinish: () => {
-                  this.add()
-                },
-                rotation: Math.PI * 2,
-                opacity: 1
-              })
-              this.imgTween.play()
-              // ig.rotation(50)
-              // }
-            }
-            const period = 50000
-      */
-
-
     }
   }
 
-  add(imgNo:number) {
-    if (imgNo <= 0) {
-      return
-    }
-    const currentNo = imgNo-1;
-    const layer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
-    const offsetX = (Math.random()-1)*150
+  add(seq: number) {
+    const imgNo = seq % this.imageList.length
+    if(!this.$refs.layer) return;
+    this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
+    if (!this.baseLayer) return;
+    const offsetX = (Math.random()) * window.innerWidth*0.7
+    const offsetY = (Math.random()) * 200
+    const baseWidth = this.imageList[imgNo].width * (200 / this.imageList[imgNo].height)
     const imgOrigin = {
-      x: this.configKonva.width/2+offsetX,
-      y: 400,
-      width: 200,
+      x: offsetX,
+      y: 50+offsetY,
+      width: baseWidth,
       height: 200,
-      rotation: 0,
+      rotation: (Math.random() - 0.5) * 360,
       scale: {x: 10, y: 10},
       opacity: 0,
-      // scale: scale,
-      image: this.imageList[currentNo],
-      offset: {x: 100+offsetX, y: 100}
+      image: this.imageList[imgNo],
+      offset: {x: baseWidth / 2, y: 100}
     }
     const io = new Konva.Image(imgOrigin)
-    layer.add(io)
+    this.baseLayer.add(io)
     const tw1 = new Konva.Tween({
       node: io,
       duration: 10,
       scaleX: 1,
       scaleY: 1,
-      easing: Konva.Easings.EaseOut,
-      onUpdate: () => {
-      },
+      easing: Math.floor(seq / this.imageList.length) % 2 ? Konva.Easings.BounceEaseOut : Konva.Easings.StrongEaseOut,
+      // onUpdate: () => {
+      // },
       onFinish: () => {
-        this.add(currentNo)
+        this.pause(seq)
       },
-      opacity: 1
     })
     const tw2 = new Konva.Tween({
       node: io,
       duration: 10,
-      // offset: {x: (Math.random()-1)*150, y: (Math.random()-1)*150},
-      // offsetX: (Math.random()-1)*150,
-      easing: Konva.Easings.Linear,
-      onUpdate: () => {
-      },
-      onFinish: () => {
-      },
-      rotation: 360 * 2+Math.random()*360,
+      easing: Konva.Easings.EaseOut,
+      // onUpdate: () => {
+      // },
+      // onFinish: () => {
+      // },
+      rotation: (Math.random() - 0.5) * 360,
+      opacity: 1
     })
     tw1.play()
     tw2.play()
+  }
+
+  pause(seq: number) {
+    if(!this.$refs.layer) return;
+    this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
+    if (!this.baseLayer) return;
+    const tw1 = new Konva.Tween({
+      node: this.baseLayer,
+      duration: 10,
+      scaleX: 1,
+      scaleY: 1,
+      easing: Konva.Easings.Linear,
+      // onUpdate: () => {
+      // },
+      onFinish: () => {
+        const imgNo = seq % this.imageList.length
+        if (this.baseLayer && imgNo == this.imageList.length - 1) {
+          this.baseLayer.children.toArray().forEach(value => value.remove())
+          this.baseLayer.opacity(1)
+        }
+        this.add(seq + 1)
+      },
+      opacity: 1
+    })
+    tw1.play()
   }
 }
 </script>
