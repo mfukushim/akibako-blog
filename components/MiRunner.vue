@@ -27,7 +27,7 @@
           </div>
         </v-card>
       </div>
-
+      <div>今のMiさん</div>
       <v-img :src="testUrl"></v-img>
     </no-ssr>
   </div>
@@ -66,7 +66,11 @@ export default class MiRunner extends Vue {
   testUrl = ''
 
   mounted() {
-    this.testUrl = `${this.$config.staticStore}/mi-runner/1622365654.jpg`
+    //  仮処置
+    const now = dayjs()
+
+    this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
+    // this.testUrl = `${this.$config.staticStore}/mi-runner/1622365654.jpg`
 
     // axios.get(`${this.$config.staticStore}/mi-runner/log.txt`).then(value => {
     //   const data:string = value.data;
