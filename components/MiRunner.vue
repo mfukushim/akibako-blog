@@ -1,75 +1,65 @@
 <template>
   <div>
     <no-ssr placeholder="Loading...">
+      <div>今のMiさん</div>
+      <v-img :src="testUrl" />
       <div
         v-for="item in history"
         :key="item.seq"
       >
         <v-card
           color="#73383d"
-          dark class="ma-1"
+          dark
+          class="ma-1"
         >
           <div class="d-flex flex-no-wrap justify-space-between">
             <v-col cols="5">
               <v-card-title
                 class="headline"
                 v-text="historyItemToLabel(item)"
-              ></v-card-title>
+              />
 
-              <v-card-subtitle v-text="item.address"></v-card-subtitle>
+              <v-card-subtitle v-text="item.address" />
             </v-col>
             <v-col cols="7">
               <v-img
                 height="160"
                 :src="getPict(item)"
-              ></v-img>
+              />
             </v-col>
           </div>
         </v-card>
       </div>
-      <div>今のMiさん</div>
-      <v-img :src="testUrl"></v-img>
     </no-ssr>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'nuxt-property-decorator'
-import VueKonva from 'vue-konva'
-import Konva from 'konva'
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-import NumberFormat = Intl.NumberFormat;
-import axios from "axios";
+/* eslint-disable space-before-function-paren */
+import { Component, Vue } from 'nuxt-property-decorator'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+import serverService, { MiHistory } from '~/services/ServerService'
 
-Vue.use(VueKonva)
 dayjs.extend(duration)
-
-export interface MiHistory {
-  tripId: number;
-  seq: number;
-  time: string;
-  address: string;
-  elapsed: number;
-  lat: number;
-  lng: number;
-  lazy?: boolean;
-}
 
 @Component({
   name: 'MiRunner'
 })
 export default class MiRunner extends Vue {
   private history: MiHistory[] = [];
-  format2 = NumberFormat("ja", {minimumIntegerDigits: 2})
+  baseServerUrl = serverService.getServerBaseUrl()
+  // departureLoc: { status: string; address: string; lat: number; lng: number } | undefined
+  // destinationLoc: { status: string; address: string; lat: number; lng: number } | undefined
 
   testUrl = ''
 
-  mounted() {
+  async mounted() {
     //  仮処置
-    const now = dayjs()
+    serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
+    // const now = dayjs()
 
-    this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
+    // this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
     // this.testUrl = `${this.$config.staticStore}/mi-runner/1622365654.jpg`
 
     // axios.get(`${this.$config.staticStore}/mi-runner/log.txt`).then(value => {
@@ -77,25 +67,42 @@ export default class MiRunner extends Vue {
     //   const d = JSON.parse(data)
     //   this.history = d.history
     // })
+    await this.getHistory()
   }
 
-  activated() {
-    //  仮処置
-    const now = dayjs()
+  // activated() {
+  //   //  仮処置
+  //   const now = dayjs()
+  //
+  //   this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
+  // }
 
-    this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
-  }
   /** 履歴から表示ラベル生成 */
   historyItemToLabel(item: MiHistory) {
-    const span = dayjs.duration(item.elapsed, "seconds");
-    return `${this.format2.format(span.hours())}:${this.format2.format(span.minutes())}`
-      + ` ${item.time}`
+    const span = dayjs.duration(item.elapsed, 'seconds')
+    return `${span.hours().toString().padStart(2, '0')}:${span.minutes().toString().padStart(2, '0')}` +
+      ` ${item.time}`
   }
 
+  /** 履歴取得 */
+  private async getHistory(tripId: number) {
+    const hist = await serverService.getMiHistory(tripId)
+    console.log(`hist:${hist}`)
+    this.history = hist || []
+  }
+
+  /** 出発地取得 */
+  // async getDepartureLocation() {
+  //   this.departureLoc = await this.getAddressToLocation(this.departureText)
+  // }
+
+  /** 目的値取得 */
+  // async getDestinationLocation() {
+  //   this.destinationLoc = await this.getAddressToLocation(this.destinationText)
+  // }
   getPict(item: MiHistory) {
-    return `${this.$config.staticStore}/mi-runner/${item.seq}.jpg`
+    return item.lazy ? '' : this.baseServerUrl + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}`
   }
-
 }
 </script>
 
