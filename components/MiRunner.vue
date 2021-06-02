@@ -78,6 +78,13 @@ export default class MiRunner extends Vue {
     //   this.history = d.history
     // })
   }
+
+  activated() {
+    //  仮処置
+    const now = dayjs()
+
+    this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
+  }
   /** 履歴から表示ラベル生成 */
   historyItemToLabel(item: MiHistory) {
     const span = dayjs.duration(item.elapsed, "seconds");
