@@ -48,7 +48,6 @@ dayjs.extend(duration)
 })
 export default class MiRunner extends Vue {
   private history: MiHistory[] = [];
-  baseServerUrl = serverService.getServerBaseUrl()
   // departureLoc: { status: string; address: string; lat: number; lng: number } | undefined
   // destinationLoc: { status: string; address: string; lat: number; lng: number } | undefined
 
@@ -56,10 +55,10 @@ export default class MiRunner extends Vue {
 
   async mounted() {
     //  仮処置
-    serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
-    // const now = dayjs()
+    const now = dayjs()
+    this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
 
-    // this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
+    serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
     // this.testUrl = `${this.$config.staticStore}/mi-runner/1622365654.jpg`
 
     // axios.get(`${this.$config.staticStore}/mi-runner/log.txt`).then(value => {
@@ -67,7 +66,7 @@ export default class MiRunner extends Vue {
     //   const d = JSON.parse(data)
     //   this.history = d.history
     // })
-    await this.getHistory()
+    // await this.getHistory()
   }
 
   // activated() {
@@ -101,7 +100,7 @@ export default class MiRunner extends Vue {
   //   this.destinationLoc = await this.getAddressToLocation(this.destinationText)
   // }
   getPict(item: MiHistory) {
-    return item.lazy ? '' : this.baseServerUrl + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}`
+    return item.lazy ? '' : serverService.baseURL + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}`
   }
 }
 </script>
