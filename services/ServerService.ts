@@ -100,8 +100,12 @@ export class ServerService {
     return await this.getAxios(`${this.baseURL}/mi-runner/leap-out`, loc) as { status: string; visit?: any } | string
   }
 
-  async getMiHistory (tripId: number): Promise<MiHistory[] | undefined> {
+  async getMiHistory (tripId: string): Promise<MiHistory[] | undefined> {
     return await this.getAxios(`${this.baseURL}/mi-runner/history`, { tripId }) as MiHistory[] | undefined
+  }
+
+  async getTripList (daySpan: number): Promise<string[] | undefined> {
+    return await this.getAxios(`${this.baseURL}/mi-runner/trips`, { daySpan }) as string[] | undefined
   }
 
   async getMapLocation (addressName: string): Promise<{ status: string; address: string; lat: number; lng: number } | string> {

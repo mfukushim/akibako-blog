@@ -59,6 +59,12 @@ export default class MiRunner extends Vue {
     this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
 
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
+    console.log(this.$config.blogServiceEndpoint)
+    const tripList = await serverService.getTripList(1)
+    if (tripList) {
+      const history = await serverService.getMiHistory(tripList.slice(-1)[0])
+      this.history = history || []
+    }
     // this.testUrl = `${this.$config.staticStore}/mi-runner/1622365654.jpg`
 
     // axios.get(`${this.$config.staticStore}/mi-runner/log.txt`).then(value => {
@@ -84,7 +90,7 @@ export default class MiRunner extends Vue {
   }
 
   /** 履歴取得 */
-  private async getHistory(tripId: number) {
+  private async getHistory(tripId: string) {
     const hist = await serverService.getMiHistory(tripId)
     console.log(`hist:${hist}`)
     this.history = hist || []
