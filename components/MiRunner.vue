@@ -2,7 +2,7 @@
   <div>
     <no-ssr placeholder="Loading...">
       <div>今のMiさん</div>
-      <v-img :src="testUrl" />
+<!--      <v-img :src="testUrl" />-->
       <div
         v-for="item in history"
         :key="item.seq"
@@ -13,7 +13,8 @@
           class="ma-1"
         >
           <div class="d-flex flex-no-wrap justify-space-between">
-            <v-col cols="5">
+            <v-row>
+            <v-col cols="10">
               <v-card-title
                 class="headline"
                 v-text="historyItemToLabel(item)"
@@ -21,12 +22,13 @@
 
               <v-card-subtitle v-text="item.address" />
             </v-col>
-            <v-col cols="7">
+            <v-col cols="10">
               <v-img
                 height="160"
                 :src="getPict(item)"
               />
             </v-col>
+            </v-row>
           </div>
         </v-card>
       </div>
@@ -61,8 +63,10 @@ export default class MiRunner extends Vue {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
     console.log(this.$config.blogServiceEndpoint)
     const tripList = await serverService.getTripList(1)
+    console.log(`tripList:${tripList}`)
     if (tripList) {
       const history = await serverService.getMiHistory(tripList.slice(-1)[0])
+      console.log(`history:${history}`)
       this.history = history || []
     }
     // this.testUrl = `${this.$config.staticStore}/mi-runner/1622365654.jpg`
@@ -85,8 +89,9 @@ export default class MiRunner extends Vue {
   /** 履歴から表示ラベル生成 */
   historyItemToLabel(item: MiHistory) {
     const span = dayjs.duration(item.elapsed, 'seconds')
-    return `${span.hours().toString().padStart(2, '0')}:${span.minutes().toString().padStart(2, '0')}` +
-      ` ${item.time}`
+    return `${span.hours().toString().padStart(2, '0')}:${span.minutes().toString().padStart(2, '0')}`
+      // +
+      // ` ${item.time}`
   }
 
   /** 履歴取得 */
