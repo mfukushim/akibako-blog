@@ -2,7 +2,6 @@
   <div>
     <no-ssr placeholder="Loading...">
       <div>今のMiさん</div>
-<!--      <v-img :src="testUrl" />-->
       <div
         v-for="item in history"
         :key="item.seq"
@@ -14,34 +13,34 @@
         >
           <div class="d-flex flex-no-wrap justify-space-between">
             <v-row>
-            <v-col cols="10">
-              <v-card-title
-                class="headline"
-                v-text="historyItemToLabel(item)"
-              />
-
-              <v-card-subtitle v-text="item.address" />
-            </v-col>
-            <v-col cols="10">
-              <v-img
-                height="160"
-                :src="getPict(item)"
-              />
-            </v-col>
+              <v-col cols="10">
+                <v-card-title
+                  class="headline"
+                  v-text="historyItemToLabel(item)"
+                />
+                <v-card-subtitle v-text="item.address"/>
+              </v-col>
+              <v-col cols="10">
+                <v-img
+                  height="160"
+                  :src="getPict(item)"
+                />
+              </v-col>
             </v-row>
           </div>
         </v-card>
       </div>
+<!--      <v-img max-width="400" max-height="400" :src="courseMapUrl"></v-img>-->
     </no-ssr>
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable space-before-function-paren */
-import { Component, Vue } from 'nuxt-property-decorator'
+import {Component, Vue} from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
-import serverService, { MiHistory } from '~/services/ServerService'
+import serverService, {MiHistory} from '~/services/ServerService'
 
 dayjs.extend(duration)
 
@@ -52,6 +51,7 @@ export default class MiRunner extends Vue {
   private history: MiHistory[] = [];
   // departureLoc: { status: string; address: string; lat: number; lng: number } | undefined
   // destinationLoc: { status: string; address: string; lat: number; lng: number } | undefined
+  courseMapUrl = ''
 
   testUrl = ''
 
@@ -61,37 +61,21 @@ export default class MiRunner extends Vue {
     this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
 
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
-    console.log(this.$config.blogServiceEndpoint)
     const tripList = await serverService.getTripList(1)
-    console.log(`tripList:${tripList}`)
     if (tripList) {
       const history = await serverService.getMiHistory(tripList.slice(-1)[0])
-      console.log(`history:${history}`)
       this.history = history || []
+      // const s = this.history.map((value) => {
+      //   return `${value.lat},${value.lng}`
+      // }).join('%7C')
+      // this.courseMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=size:tiny%7Ccolor:red%7C${s}&size=200x200&key=${this.$config.mapKey}`
     }
-    // this.testUrl = `${this.$config.staticStore}/mi-runner/1622365654.jpg`
-
-    // axios.get(`${this.$config.staticStore}/mi-runner/log.txt`).then(value => {
-    //   const data:string = value.data;
-    //   const d = JSON.parse(data)
-    //   this.history = d.history
-    // })
-    // await this.getHistory()
   }
-
-  // activated() {
-  //   //  仮処置
-  //   const now = dayjs()
-  //
-  //   this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
-  // }
 
   /** 履歴から表示ラベル生成 */
   historyItemToLabel(item: MiHistory) {
     const span = dayjs.duration(item.elapsed, 'seconds')
     return `${span.hours().toString().padStart(2, '0')}:${span.minutes().toString().padStart(2, '0')}`
-      // +
-      // ` ${item.time}`
   }
 
   /** 履歴取得 */

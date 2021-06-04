@@ -92,6 +92,7 @@ export class ServerService {
     return await this.getAxios(`${this.baseURL}/mi-runner/current-loc`, { runTime: runTime.toString() }) as StreetViewLocation | undefined
   }
 
+  /** Trip 全体スケジュール */
   async getRunnerStartTime () {
     return await this.getAxios(`${this.baseURL}/mi-runner/start-run`) as MiStatus | string
   }
