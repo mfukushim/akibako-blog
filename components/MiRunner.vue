@@ -26,11 +26,23 @@
                   :src="getPict(item)"
                 />
               </v-col>
+              <v-col cols="10">
+                <v-img
+                  height="160"
+                  :src="getPlaceMap(item)"
+                />
+              </v-col>
+              <v-col cols="10">
+                <v-img
+                  height="160"
+                  :src="getCourseMap(item)"
+                />
+              </v-col>
             </v-row>
           </div>
         </v-card>
       </div>
-<!--      <v-img max-width="400" max-height="400" :src="courseMapUrl"></v-img>-->
+      <!--      <v-img max-width="400" max-height="400" :src="courseMapUrl"></v-img>-->
     </no-ssr>
   </div>
 </template>
@@ -56,10 +68,6 @@ export default class MiRunner extends Vue {
   testUrl = ''
 
   async mounted() {
-    //  仮処置
-    const now = dayjs()
-    this.testUrl = `${this.$config.staticStore}/mi-runner/01.jpg?${now.unix()}`
-
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
     const tripList = await serverService.getTripList(1)
     if (tripList) {
@@ -95,7 +103,20 @@ export default class MiRunner extends Vue {
   //   this.destinationLoc = await this.getAddressToLocation(this.destinationText)
   // }
   getPict(item: MiHistory) {
-    return item.lazy ? '' : serverService.baseURL + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}`
+    // return item.lazy ? '' : serverService.baseURL + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}`
+    return this.getPictWithType(item, 'image')
+  }
+
+  getPlaceMap(item: MiHistory) {
+    return this.getPictWithType(item, 'placeMap')
+  }
+
+  getCourseMap(item: MiHistory) {
+    return this.getPictWithType(item, 'courseMap')
+  }
+
+  getPictWithType(item: MiHistory, pictType: string) {
+    return item.lazy ? '' : serverService.baseURL + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}&type=${pictType}`
   }
 }
 </script>

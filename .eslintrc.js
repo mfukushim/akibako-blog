@@ -13,6 +13,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     'space-before-function-paren': 'off',
-    'object-curly-spacing': 'off'
+    'object-curly-spacing': 'off',
+    'lines-between-class-members': 'off'
   }
 }

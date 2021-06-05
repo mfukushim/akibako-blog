@@ -2,11 +2,8 @@
   <div>
     <no-ssr placeholder="Loading...">
       <v-stage :config="configKonva">
-        <v-layer ref="layer">
-        </v-layer>
-        <v-layer>
-          <!--          <v-text :config="configText"></v-text>-->
-        </v-layer>
+        <v-layer ref="layer" />
+        <v-layer />
       </v-stage>
     </no-ssr>
   </div>
@@ -16,6 +13,7 @@
 import {Component, Prop, Vue} from 'nuxt-property-decorator'
 import VueKonva from 'vue-konva'
 import Konva from 'konva'
+import serverService from '~/services/ServerService'
 
 Vue.use(VueKonva)
 
@@ -26,7 +24,6 @@ export default class ImageStack extends Vue {
   @Prop()
   storeUrl?: string
   baseLayer?: Konva.Layer
-
   configKonva = {
     width: 800,
     height: 300
@@ -42,42 +39,49 @@ export default class ImageStack extends Vue {
   imageList: HTMLImageElement[] = []
 
   mounted() {
-    if (process.client) {
-      this.configKonva.width = window.innerWidth
-
-      Promise.all(Array.from(new Array(7).keys()).map(value => {
-        return new Promise<HTMLImageElement>(resolve => {
-          const image = new window.Image()
-          image.src = `${this.storeUrl}/${value.toString().padStart(2, '0')}.jpg`
-          return resolve(image)
+    serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
+    let imageGetList:string[] = []
+    serverService.getImageStackSourceInfo().then((value) => {
+      imageGetList = value
+      // console.log(imageGetList)
+    }).finally(() => {
+      if (process.client) {
+        this.configKonva.width = window.innerWidth
+        // Promise.all(Array.from(new Array(7).keys()).map((value) => {
+        Promise.all(imageGetList.map((value) => {
+          return new Promise<HTMLImageElement>((resolve) => {
+            const image = new window.Image()
+            image.src = `${this.storeUrl}/${value}`
+            // image.src = `${this.storeUrl}/${value.toString().padStart(2, '0')}.jpg`
+            return resolve(image)
+          })
+        })).then((value) => {
+          this.imageList = value
+          this.add(0)
         })
-      })).then(value => {
-        this.imageList = value
-        this.add(0)
-      })
-      if (this.$refs.layer) {
-        this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
-        if (this.baseLayer) {
-          this.configKonva.width = this.baseLayer.width();
-          this.configText.x = this.baseLayer.width();
-
+        if (this.$refs.layer) {
+          this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer //  ここはどう書くのがよいのか
+          if (this.baseLayer) {
+            // this.configKonva.width = this.baseLayer.width()
+            this.configText.x = this.baseLayer.width()
+          }
+          // this.baseLayer.clear()
         }
-        // this.baseLayer.clear()
       }
-    }
+    })
   }
 
   add(seq: number) {
     const imgNo = seq % this.imageList.length
-    if(!this.$refs.layer) return;
-    this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
-    if (!this.baseLayer) return;
-    const offsetX = (Math.random()) * window.innerWidth*0.7
+    if (!this.$refs.layer) { return }
+    this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer //  ここはどう書くのがよいのか
+    if (!this.baseLayer) { return }
+    const offsetX = (Math.random()) * window.innerWidth * 0.7
     const offsetY = (Math.random()) * 200
     const baseWidth = this.imageList[imgNo].width * (200 / this.imageList[imgNo].height)
     const imgOrigin = {
       x: offsetX,
-      y: 50+offsetY,
+      y: 50 + offsetY,
       width: baseWidth,
       height: 200,
       rotation: (Math.random() - 0.5) * 360,
@@ -98,7 +102,7 @@ export default class ImageStack extends Vue {
       // },
       onFinish: () => {
         this.pause(seq)
-      },
+      }
     })
     const tw2 = new Konva.Tween({
       node: io,
@@ -116,9 +120,9 @@ export default class ImageStack extends Vue {
   }
 
   pause(seq: number) {
-    if(!this.$refs.layer) return;
-    this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer  //  ここはどう書くのがよいのか
-    if (!this.baseLayer) return;
+    if (!this.$refs.layer) { return }
+    this.baseLayer = (this.$refs.layer as unknown as Konva.Transformer).getNode() as Konva.Layer //  ここはどう書くのがよいのか
+    if (!this.baseLayer) { return }
     const tw1 = new Konva.Tween({
       node: this.baseLayer,
       duration: 10,
@@ -129,7 +133,7 @@ export default class ImageStack extends Vue {
       // },
       onFinish: () => {
         const imgNo = seq % this.imageList.length
-        if (this.baseLayer && imgNo == this.imageList.length - 1) {
+        if (this.baseLayer && imgNo === this.imageList.length - 1) {
           this.baseLayer.children.toArray().forEach(value => value.remove())
           this.baseLayer.opacity(1)
         }
