@@ -3,7 +3,7 @@
     <no-ssr placeholder="Loading...">
       <div>今のMiさん</div>
       <div
-        v-for="item in history"
+        v-for="(item,index) in history"
         :key="item.seq"
       >
         <v-card
@@ -32,7 +32,7 @@
                   :src="getPlaceMap(item)"
                 />
               </v-col>
-              <v-col cols="10">
+              <v-col v-if="index+1 === history.length" cols="10">
                 <v-img
                   height="160"
                   :src="getCourseMap(item)"
