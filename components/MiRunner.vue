@@ -22,7 +22,7 @@
               </v-col>
               <v-col cols="10">
                 <v-img
-                  height="160"
+                  max-height="160"
                   :src="getPict(item)"
                 />
               </v-col>
