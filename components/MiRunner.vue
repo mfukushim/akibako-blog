@@ -69,7 +69,7 @@ export default class MiRunner extends Vue {
 
   async mounted() {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
-    const tripList = await serverService.getTripList(1)
+    const tripList = await serverService.getTripList(100, 10)
     if (tripList) {
       const history = await serverService.getMiHistory(tripList.slice(-1)[0])
       this.history = history || []

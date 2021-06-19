@@ -107,8 +107,8 @@ export class ServerService {
     return await this.getAxios(`${this.baseURL}/mi-runner/history`, {tripId}) as MiHistory[] | undefined
   }
 
-  async getTripList(daySpan: number): Promise<string[] | undefined> {
-    return await this.getAxios(`${this.baseURL}/mi-runner/trips`, {daySpan}) as string[] | undefined
+  async getTripList(daySpan?: number, maxNum?: number): Promise<string[] | undefined> {
+    return await this.getAxios(`${this.baseURL}/mi-runner/trips`, {daySpan, maxNum}) as string[] | undefined
   }
 
   async getMapLocation(addressName: string): Promise<{ status: string; address: string; lat: number; lng: number } | string> {
