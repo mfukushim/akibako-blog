@@ -1,36 +1,36 @@
 <template>
   <div>
-        <ImageStack :storeUrl="$config.staticStore">        </ImageStack>
+    <ImageStack :storeUrl="$config.staticStore"></ImageStack>
 
     <!--    <v-carousel cycle dark hide-delimiters interval="20000">-->
-<!--      <v-carousel-item-->
-<!--        v-for="(item,i) in items"-->
-<!--        :key="i"-->
-<!--        :src="item"-->
-<!--        reverse-transition="fade-transition"-->
-<!--        transition="fade-transition"-->
-<!--      >-->
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <v-col
-            class="text-right black--text"
-            cols="12"
-            align-self="end"
-          >
-            <h1 class="display-1 font-weight-thin mb-4 ma-2">
-              あきばこ工房
-            </h1>
-            <h4 class="text-subtitle-2 ma-2">
-              <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
-              <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
-            </h4>
-          </v-col>
-        </v-row>
-<!--      </v-carousel-item>-->
-<!--    </v-carousel>-->
+    <!--      <v-carousel-item-->
+    <!--        v-for="(item,i) in items"-->
+    <!--        :key="i"-->
+    <!--        :src="item"-->
+    <!--        reverse-transition="fade-transition"-->
+    <!--        transition="fade-transition"-->
+    <!--      >-->
+    <v-row
+      class="fill-height"
+      align="center"
+      justify="center"
+    >
+      <v-col
+        class="text-right black--text"
+        cols="12"
+        align-self="end"
+      >
+        <h1 class="display-1 font-weight-thin mb-4 ma-2">
+          あきばこ工房
+        </h1>
+        <h4 class="text-subtitle-2 ma-2">
+          <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
+          <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
+        </h4>
+      </v-col>
+    </v-row>
+    <!--      </v-carousel-item>-->
+    <!--    </v-carousel>-->
     <v-row justify="center" align="center" class="ma-2">
       <v-col class="text-center" cols="12">
       </v-col>
@@ -149,6 +149,58 @@
         </v-card-actions>
       </v-card>
     </v-row>
+    <v-card>
+      <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
+      </v-card-title>
+      <h2></h2>
+      <v-img src="https://ipfs.io/ipfs/QmbQL11ocGXoSFJZ7zZfMVviUCi7WpxkCDSvuvRk8Cdoh4/images/mi.png"></v-img>
+      <v-card-text class="d-flex flex-wrap">
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Server</div>
+          <div class="body-2">Information core server</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Front</div>
+          <div class="body-2">Basic information front end</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Task</div>
+          <div class="body-2">Private task note/editor/viewer</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Monitor</div>
+          <div class="body-2">Private activity monitor on PC</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Receiver</div>
+          <div class="body-2">Cloud service receive gateway</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Runner</div>
+          <div class="body-2">Mascot for Business rest time</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Space</div>
+          <div class="body-2">Room power management front end</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Billboard</div>
+          <div class="body-2">Enhanced task and private information ticker</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Cam</div>
+          <div class="body-2">InHouse body camera capture</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-Sense</div>
+          <div class="body-2">Scene/Life environment detect analysis service</div>
+        </div>
+        <div class="col-6">
+          <div class="subtitle-1 font-weight-bold">Mi-MonitorCs/Mi-MonitorUwp</div>
+          <div class="body-2">Headset connector transmitter</div>
+        </div>
+      </v-card-text>
+    </v-card>
     <adsbygoogle :ad-slot="ad"/>
   </div>
 </template>
@@ -178,9 +230,9 @@ export default class index extends Vue {
   items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 
   async asyncData({
-                    $content,
-                    $config
-                  }: Context) {
+    $content,
+    $config
+  }: Context) {
     const headQuery = $content('ipfs', {deep: true}).where({
       categories: {$contains: 'head'}
     }).sortBy('date', 'desc').limit(1)
