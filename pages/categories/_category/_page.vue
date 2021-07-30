@@ -47,10 +47,12 @@ export default class Category extends Vue {
                      $content,
                      params
                    }: Context) {
+    //  TODO hot-fix sand-box/sandbox trouble temporally
+    const cats= params.category == 'sand-box' ? ['sand-box', 'sandbox'] : [params.category]
     const pageMax = 20
     const page = Number.parseInt(params.page);
     const query = $content('ipfs', { deep: true }).where({
-      categories: { $contains: params.category }
+      categories: { $containsAny : cats }
     }).sortBy('date', 'desc')
     const posts = await query.fetch()
     const title = `Category : ${params.category}`

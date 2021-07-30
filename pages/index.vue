@@ -197,7 +197,7 @@
         </div>
         <div class="col-6">
           <div class="subtitle-1 font-weight-bold">Mi-MonitorCs/Mi-MonitorUwp</div>
-          <div class="body-2">Headset connector transmitter</div>
+          <div class="body-2">Headset connector transmitter/Keyboard,Mouse action detect</div>
         </div>
       </v-card-text>
     </v-card>
