@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-carousel cycle dark hide-delimiters interval="20000">
+<!--    <v-carousel cycle dark hide-delimiters interval="20000">
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -14,58 +14,80 @@
           justify="center"
         >
           <v-col
-            class="text-right black--text"
+            class="text-right black&#45;&#45;text"
             cols="12"
             align-self="end"
           >
-            <h1 class="display-1 font-weight-thin mb-4 ma-2">
-              Mi-Runner簡易ヒストリ
-            </h1>
           </v-col>
         </v-row>
       </v-carousel-item>
-    </v-carousel>
+    </v-carousel>-->
+    <h1 class="display-1 font-weight-thin mb-4 ma-2">
+      Mi-Runner簡易ヒストリ
+    </h1>
     <no-ssr placeholder="Loading...">
-    <div
-      v-for="(item,index) in history"
-      :key="item.seq"
-    >
-      <v-card
-        color="#73383d"
-        dark
-        class="ma-1"
+      <div
+        v-for="(hItem,index) in history"
+        :key="index"
       >
-        <div class="d-flex flex-no-wrap justify-space-between">
-          <v-row>
-            <v-col cols="10">
-              <v-card-title
-                class="headline"
-                v-text="historyItemToLabel(item)"
-              />
-              <v-card-subtitle v-text="item.address"/>
-            </v-col>
-            <v-col cols="10">
-              <v-img
-                max-height="160"
-                :src="getPict(item)"
-              />
-            </v-col>
-            <v-col cols="10">
-              <v-img
-                height="160"
-                :src="getPlaceMap(item)"
-              />
-            </v-col>
-            <v-col v-if="index+1 === history.length" cols="10">
-              <v-img
-                height="160"
-                :src="getCourseMap(item)"
-              />
-            </v-col>
-          </v-row>
+        <div
+          v-for="(item,index) in hItem"
+          :key="item.seq"
+        >
+          <v-card class="indigo">
+            <div class="d-flex flex-no-wrap justify-space-between">
+              <v-col cols="5">
+                <v-card-title
+                  class="headline"
+                >
+                  Trip at {{ startTime.start }}
+                </v-card-title>
+                <v-card-text>
+                  <div>Departure: {{ startTime.from }}</div>
+                  <div>Destination: {{ startTime.to }}</div>
+                  <div>Duration: {{ startTime.duration }}</div>
+                </v-card-text>
+              </v-col>
+              <v-col cols="7">
+                <v-img
+                  height="160"
+                  :src="getCourseMap(item[hItem.length-1])"
+                />
+              </v-col>
+            </div>
+          </v-card>
+          <v-card
+            color="#73383d"
+            dark
+            class="ma-1"
+          >
+            <div class="d-flex flex-no-wrap justify-space-between">
+              <v-row>
+                <v-col cols="10">
+                  <v-card-title
+                    class="headline"
+                    v-text="historyItemToLabel(item)"
+                  />
+                  <v-card-subtitle v-text="item.address"/>
+                </v-col>
+                <v-col cols="7">
+                  <v-img
+                    max-height="240"
+                    :src="getPict(item)"
+                  />
+                </v-col>
+                <v-col cols="4">
+                  <v-img
+                    height="240"
+                    :src="getPlaceMap(item)"
+                  />
+                </v-col>
+              </v-row>
+            </div>
+          </v-card>
         </div>
-      </v-card>
-    </div>
+
+      </div>
     </no-ssr>
     <v-card>
       <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
@@ -126,25 +148,38 @@
 import {Component, Vue} from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
-import serverService, {MiHistory} from '~/services/ServerService'
+import serverService, {MiHistory, MiStatus} from '~/services/ServerService'
 
 @Component({
   name: 'index'
 })
 export default class MiRunnerHistory extends Vue {
-  private history: MiHistory[] = [];
-  // departureLoc: { status: string; address: string; lat: number; lng: number } | undefined
-  // destinationLoc: { status: string; address: string; lat: number; lng: number } | undefined
+  startTime: MiStatus = {start: "", epoch: 0, tripId: 0, status: "", tilEndEpoch: 0, from: "", to: "", duration: ""}
+  private history: MiHistory[][] = [];
+  // private history: MiHistory[] = [];
   courseMapUrl = ''
 
   testUrl = ''
 
   async mounted() {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
-    const tripList = await serverService.getTripList(100, 10)
-    if (tripList) {
-      const history = await serverService.getMiHistory(tripList.slice(-1)[0])
-      this.history = history || []
+    const startTime = await serverService.getRunnerStartTime();
+    if (typeof startTime !== "string") {
+      this.startTime = startTime
+    }
+
+    const tripList = await serverService.getTripList(100, 10);
+    console.debug(`tripList:${tripList}`)
+    if (tripList && tripList.length > 6) {
+      const map = await Promise.all(tripList.slice(-5,0).map(value => serverService.getMiHistory(value)));
+      this.history = map.filter<MiHistory[]>((value):value is MiHistory[] => value != undefined)
+      console.debug(this.history)
+      // const map = tripList.slice(-5,-1).reduce((previousValue, currentValue) => {
+      //   const hist = serverService.getMiHistory(currentValue)
+      //   return hist ? previousValue.concat(hist) : previousValue
+      // },[] as Promise<MiHistory[] | undefined>[]);
+      // const history = await serverService.getMiHistory(tripList.slice(-1)[0])
+      // this.history = history || []
       // const s = this.history.map((value) => {
       //   return `${value.lat},${value.lng}`
       // }).join('%7C')
@@ -159,11 +194,11 @@ export default class MiRunnerHistory extends Vue {
   }
 
   /** 履歴取得 */
-  private async getHistory(tripId: string) {
-    const hist = await serverService.getMiHistory(tripId)
-    console.log(`hist:${hist}`)
-    this.history = hist || []
-  }
+  // private async getHistory(tripId: string) {
+  //   const hist = await serverService.getMiHistory(tripId)
+  //   console.log(`hist:${hist}`)
+  //   this.history = hist || []
+  // }
 
   /** 出発地取得 */
   // async getDepartureLocation() {

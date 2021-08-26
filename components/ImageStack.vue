@@ -1,7 +1,7 @@
 <template>
   <div>
     <no-ssr placeholder="Loading...">
-      <v-stage :config="configKonva">
+      <v-stage :config="configKonva" :style="backColor">
         <v-layer ref="layer" />
         <v-layer />
       </v-stage>
@@ -37,8 +37,10 @@ export default class ImageStack extends Vue {
   }
   img: Konva.ImageConfig = {} as Konva.ImageConfig
   imageList: HTMLImageElement[] = []
+  backColor = 'background-color: hsl(120,80%,94%)'
 
   mounted() {
+    this.backColor = `background-color: hsl(${Math.floor(Math.random()*360)},70%,94%)`
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
     let imageGetList:string[] = []
     serverService.getImageStackSourceInfo().then((value) => {
@@ -50,6 +52,7 @@ export default class ImageStack extends Vue {
         // Promise.all(Array.from(new Array(7).keys()).map((value) => {
         Promise.all(imageGetList.map((value) => {
           return new Promise<HTMLImageElement>((resolve) => {
+            // @ts-ignore
             const image = new window.Image()
             image.src = `${this.storeUrl}/${value}`
             // image.src = `${this.storeUrl}/${value.toString().padStart(2, '0')}.jpg`

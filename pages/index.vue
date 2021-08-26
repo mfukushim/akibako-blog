@@ -33,6 +33,17 @@
     <!--    </v-carousel>-->
     <v-row justify="center" align="center" class="ma-2">
       <v-col class="text-center" cols="12">
+        <v-chip
+          class="ma-2"
+          color="success"
+          outlined
+          href="mi-runner"
+        >
+          <v-icon left>
+            mdi-run
+          </v-icon>
+          Mi-Runner summary
+        </v-chip>
       </v-col>
       <v-col cols="12">
         <nuxt-content :document="head[0]"/>
