@@ -1,6 +1,6 @@
 <template>
   <div>
-    <no-ssr placeholder="Loading...">
+    <client-only placeholder="Loading...">
       <div>今のMiさん</div>
       <div
         v-for="(item,index) in history"
@@ -43,7 +43,7 @@
         </v-card>
       </div>
       <!--      <v-img max-width="400" max-height="400" :src="courseMapUrl"></v-img>-->
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <no-ssr placeholder="Loading...">
+    <client-only placeholder="Loading...">
       <v-stage :config="configKonva" :style="backColor">
         <v-layer ref="layer" />
         <v-layer />
       </v-stage>
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 

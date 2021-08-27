@@ -25,37 +25,36 @@
     <h1 class="display-1 font-weight-thin mb-4 ma-2">
       Mi-Runner簡易ヒストリ
     </h1>
-    <no-ssr placeholder="Loading...">
+    <client-only placeholder="Loading...">
       <div
         v-for="(hItem,index) in history"
         :key="index"
       >
+        <v-card class="indigo">
+          <div class="d-flex flex-no-wrap justify-space-between">
+            <v-col cols="5">
+              <v-card-title
+                class="headline"
+              >
+              Trip at {{ hItem[0].time }}
+              </v-card-title>
+              <v-card-text>
+                                  <div>Departure: {{ hItem[0].address }}</div>
+                                  <div>Destination: {{ hItem[hItem.length-1].address }}</div>
+              </v-card-text>
+            </v-col>
+            <v-col cols="7">
+                              <v-img
+                                height="160"
+                                :src="getCourseMap(hItem[hItem.length-1])"
+                              />
+            </v-col>
+          </div>
+        </v-card>
         <div
           v-for="(item,index) in hItem"
           :key="item.seq"
         >
-          <v-card class="indigo">
-            <div class="d-flex flex-no-wrap justify-space-between">
-              <v-col cols="5">
-                <v-card-title
-                  class="headline"
-                >
-                  Trip at {{ startTime.start }}
-                </v-card-title>
-                <v-card-text>
-                  <div>Departure: {{ startTime.from }}</div>
-                  <div>Destination: {{ startTime.to }}</div>
-                  <div>Duration: {{ startTime.duration }}</div>
-                </v-card-text>
-              </v-col>
-              <v-col cols="7">
-                <v-img
-                  height="160"
-                  :src="getCourseMap(item[hItem.length-1])"
-                />
-              </v-col>
-            </div>
-          </v-card>
           <v-card
             color="#73383d"
             dark
@@ -88,7 +87,7 @@
         </div>
 
       </div>
-    </no-ssr>
+    </client-only>
     <v-card>
       <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
       </v-card-title>
@@ -154,7 +153,8 @@ import serverService, {MiHistory, MiStatus} from '~/services/ServerService'
   name: 'index'
 })
 export default class MiRunnerHistory extends Vue {
-  startTime: MiStatus = {start: "", epoch: 0, tripId: 0, status: "", tilEndEpoch: 0, from: "", to: "", duration: ""}
+  // startTime = {start: "", epoch: 0, tripId: 0, status: "", tilEndEpoch: 0, from: "", to: "", duration: ""}
+  // start = ''
   private history: MiHistory[][] = [];
   // private history: MiHistory[] = [];
   courseMapUrl = ''
@@ -163,27 +163,20 @@ export default class MiRunnerHistory extends Vue {
 
   async mounted() {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
-    const startTime = await serverService.getRunnerStartTime();
-    if (typeof startTime !== "string") {
-      this.startTime = startTime
-    }
+    // const startTime = await serverService.getRunnerStartTime();
+    // if (typeof startTime !== "string") {
+    //   this.start = startTime.start
+    //   //this.startTime = startTime
+    // }
 
     const tripList = await serverService.getTripList(100, 10);
-    console.debug(`tripList:${tripList}`)
+    // console.info(`tripList:${tripList}`)
     if (tripList && tripList.length > 6) {
-      const map = await Promise.all(tripList.slice(-5,0).map(value => serverService.getMiHistory(value)));
+      const map = await Promise.all(tripList.slice(-5,-1).map(value => serverService.getMiHistory(value)));
+      // console.log(map)
       this.history = map.filter<MiHistory[]>((value):value is MiHistory[] => value != undefined)
-      console.debug(this.history)
-      // const map = tripList.slice(-5,-1).reduce((previousValue, currentValue) => {
-      //   const hist = serverService.getMiHistory(currentValue)
-      //   return hist ? previousValue.concat(hist) : previousValue
-      // },[] as Promise<MiHistory[] | undefined>[]);
-      // const history = await serverService.getMiHistory(tripList.slice(-1)[0])
-      // this.history = history || []
-      // const s = this.history.map((value) => {
-      //   return `${value.lat},${value.lng}`
-      // }).join('%7C')
-      // this.courseMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=size:tiny%7Ccolor:red%7C${s}&size=200x200&key=${this.$config.mapKey}`
+      // console.log(this.history)
+      // console.debug(this.history)
     }
   }
 
