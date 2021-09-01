@@ -25,7 +25,7 @@
     <h1 class="display-1 font-weight-thin mb-4 ma-2">
       Mi-Runner簡易ヒストリ
     </h1>
-    <client-only placeholder="Loading...">
+<!--    <client-only placeholder="Loading...">-->
       <div
         v-for="(hItem,index) in history"
         :key="index"
@@ -87,7 +87,7 @@
         </div>
 
       </div>
-    </client-only>
+<!--    </client-only>-->
     <v-card>
       <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
       </v-card-title>
