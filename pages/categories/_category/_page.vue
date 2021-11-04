@@ -44,6 +44,7 @@ export default class Category extends Vue {
   page? = 1
 
   async asyncData ({
+                     //  @ts-ignore
                      $content,
                      params
                    }: Context) {

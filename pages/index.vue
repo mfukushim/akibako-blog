@@ -46,6 +46,7 @@
         </v-chip>
       </v-col>
       <v-col cols="12">
+        <div>とりあえずブログ書き出しツールの修復完了。。。</div>
         <nuxt-content :document="head[0]"/>
       </v-col>
     </v-row>
@@ -241,6 +242,7 @@ export default class index extends Vue {
   items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 
   async asyncData({
+                    //  @ts-ignore
     $content,
     $config
   }: Context) {

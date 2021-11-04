@@ -52,6 +52,7 @@ export default class dateIndex extends Vue {
   year?: string
 
   async asyncData({
+                    //  @ts-ignore
                     $content,
                     params
                   }: Context) {

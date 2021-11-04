@@ -39,6 +39,7 @@ export default class Search extends Vue {
   params:any
 
   async asyncData ({
+                     //  @ts-ignore
     $content,
     params
   }: Context) {

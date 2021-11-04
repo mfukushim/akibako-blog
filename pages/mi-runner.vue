@@ -162,6 +162,7 @@ export default class MiRunnerHistory extends Vue {
   testUrl = ''
 
   async mounted() {
+    console.log(this.$config.blogServiceEndpoint)
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
     // const startTime = await serverService.getRunnerStartTime();
     // if (typeof startTime !== "string") {

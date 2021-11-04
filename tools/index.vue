@@ -62,6 +62,7 @@ export default class dateIndex extends Vue {
   params?:any
 
   async asyncData ({
+                     //  @ts-ignore
     $content,
     params
   }: Context) {

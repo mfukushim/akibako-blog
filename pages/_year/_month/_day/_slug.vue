@@ -14,6 +14,7 @@ export default class slug extends Vue {
   post?:any
 
   async asyncData ({
+    //  @ts-ignore
     $content,
     params
   }: Context) {
