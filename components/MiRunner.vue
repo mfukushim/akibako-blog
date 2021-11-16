@@ -2,6 +2,7 @@
   <div>
     <client-only placeholder="Loading...">
       <div>今のMiさん</div>
+      <div class="text-body-2">暇々にPCに走らせておく放置マスコット Mi-Runnerの最近の寄り道</div>
       <div
         v-for="(item,index) in history"
         :key="item.seq"

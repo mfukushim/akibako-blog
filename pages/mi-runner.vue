@@ -25,6 +25,9 @@
     <h1 class="display-1 font-weight-thin mb-4 ma-2">
       Mi-Runner簡易ヒストリ
     </h1>
+    <div class="text-body-2">
+      暇々にPCに走らせておく放置マスコット Mi-Runnerの旅行記録の抜粋
+    </div>
 <!--    <client-only placeholder="Loading...">-->
       <div
         v-for="(hItem,index) in history"
