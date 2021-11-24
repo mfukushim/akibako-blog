@@ -164,8 +164,8 @@
     <v-card>
       <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
       </v-card-title>
-      <h2></h2>
-      <v-img src="https://ipfs.io/ipfs/QmUBjiaKtMNNj1zuj6FQyzqU2oG3oyKFcpywSz5b6vi4St/images/mi.png"></v-img>
+      <h2>2021/11/19</h2>
+      <v-img src="https://ipfs.io/ipfs/QmUBjiaKtMNNj1zuj6FQyzqU2oG3oyKFcpywSz5b6vi4St"></v-img>
       <v-card-text class="d-flex flex-wrap">
         <div class="col-6">
           <div class="subtitle-1 font-weight-bold">Mi-Server</div>

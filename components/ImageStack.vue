@@ -25,7 +25,7 @@ export default class ImageStack extends Vue {
   storeUrl?: string
   baseLayer?: Konva.Layer
   configKonva = {
-    width: 800,
+    width: 0, //800,
     height: 300
   };
   configText: Konva.TextConfig = {
