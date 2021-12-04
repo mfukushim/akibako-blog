@@ -1,6 +1,27 @@
 <template>
   <div>
-    <ImageStack :storeUrl="$config.staticStore"></ImageStack>
+    <v-parallax src="back1.png" height="800">
+      <v-row
+        class="fill-height"
+        align="center"
+        justify="center"
+      >
+        <v-col
+          class="text-right black--text"
+          cols="12"
+          align-self="end"
+        >
+          <div class="text-h2 grey--text text--darken-1 font-weight-medium mb-4 ma-2">
+            あきばこ工房
+          </div>
+          <div class="text-subtitle-1 brown--text text--lighten-1 font-weight-medium ma-2">
+            <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
+            <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-parallax>
+<!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
 
     <!--    <v-carousel cycle dark hide-delimiters interval="20000">-->
     <!--      <v-carousel-item-->
@@ -10,25 +31,6 @@
     <!--        reverse-transition="fade-transition"-->
     <!--        transition="fade-transition"-->
     <!--      >-->
-    <v-row
-      class="fill-height"
-      align="center"
-      justify="center"
-    >
-      <v-col
-        class="text-right black--text"
-        cols="12"
-        align-self="end"
-      >
-        <h1 class="display-1 font-weight-thin mb-4 ma-2">
-          あきばこ工房
-        </h1>
-        <h4 class="text-subtitle-2 ma-2">
-          <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
-          <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
-        </h4>
-      </v-col>
-    </v-row>
     <!--      </v-carousel-item>-->
     <!--    </v-carousel>-->
     <v-row justify="center" align="center" class="ma-2">
@@ -242,7 +244,7 @@ export default class index extends Vue {
   items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 
   async asyncData({
-                    //  @ts-ignore
+    //  @ts-ignore
     $content,
     $config
   }: Context) {
