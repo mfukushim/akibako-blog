@@ -55,7 +55,7 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
     // '@nuxtjs/router',
-    '@nuxtjs/google-analytics',
+    // '@nuxtjs/google-analytics',
     '@nuxtjs/dotenv'
   ],
 
@@ -66,8 +66,24 @@ export default {
     ['@nuxtjs/google-adsense', {
       id: process.env.ADSENSE,
       test: false
-    }]
+    }],
+    '@nuxtjs/i18n'
   ],
+  i18n: {
+    locales: ['ja', 'es'],
+    defaultLocale: 'ja',
+    vueI18n: {
+      fallbackLocale: 'ja',
+      messages: {
+        en: {
+          welcome: 'Welcome'
+        },
+        ja: {
+          welcome: ''
+        }
+      }
+    }
+  },
   publicRuntimeConfig: {
     ipfsRoot: process.env.ROOT_CID,
     staticStore: process.env.STATIC_STORE || '',

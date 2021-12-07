@@ -48,8 +48,11 @@
         </v-chip>
       </v-col>
       <v-col cols="12">
-        <div>とりあえずブログ書き出しツールの修復完了。。。</div>
-        <nuxt-content :document="head[0]"/>
+        <v-card>
+          <v-card-title>2020年前後の欠落画像は暫定対策として以下にまとめて配置しました</v-card-title>
+          <v-card-actions ><v-btn color="red" block class="white--text" href="/prevPicts/1">欠落画像一覧/lost pictures</v-btn></v-card-actions>
+        </v-card>
+<!--        <nuxt-content :document="head[0]"/>-->
       </v-col>
     </v-row>
     <v-row justify="center" align="center">
@@ -126,42 +129,46 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
-    <v-row justify="center" align="center">
+    <v-row justify="center" align="center" class="ma-4">
       <nuxt-link :to="today" style="text-decoration: none;">
         <v-btn small color="gray" class="ma-3">
           This month
         </v-btn>
       </nuxt-link>
     </v-row>
-    <v-row>
-      <v-col cols="1">
-        <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
-      </v-col>
-      <v-col cols="10" class="caption">
-        <div>{{ ipfsRoot }}</div>
-        Current articles root (markdown)
-        This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
-      </v-col>
-    </v-row>
-    <v-row class="pa-3">
-      <v-card class="ma-1">
-        <v-card-actions>
+<!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
+    <v-parallax src="back6.png" height="200">
+      <v-container  >
+        <v-row
+        >
+          <v-col cols="1">
+            <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
+          </v-col>
+          <v-col cols="10" class="caption black--text">
+            <div>{{ ipfsRoot }}</div>
+            Current articles root (markdown)
+            This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
+          </v-col>
+        </v-row>
+        <v-row>
           <v-btn
             icon
             href="https://twitter.com/coronahope"
-            color="grey"
+            color="blue"
           >
             <v-icon>mdi-twitter</v-icon>
           </v-btn>
           <v-btn
             icon
             href="https://github.com/mfukushim"
-            color="grey"
+            color="blue"
           >
             <v-icon>mdi-github</v-icon>
           </v-btn>
-        </v-card-actions>
-      </v-card>
+        </v-row>
+      </v-container>
+    </v-parallax>
+    <v-row class="pa-3">
     </v-row>
     <v-card>
       <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
@@ -215,7 +222,7 @@
         </div>
       </v-card-text>
     </v-card>
-    <adsbygoogle :ad-slot="ad"/>
+<!--    <adsbygoogle :ad-slot="ad"/>-->
   </div>
 </template>
 
