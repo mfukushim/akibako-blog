@@ -50,7 +50,7 @@
       <v-col cols="12">
         <v-card>
           <v-card-title>2020年前後の欠落画像は暫定対策として以下にまとめて配置しました</v-card-title>
-          <v-card-actions ><v-btn color="red" block class="white--text" href="/prevPicts/1">欠落画像一覧/lost pictures</v-btn></v-card-actions>
+          <v-card-actions ><v-btn color="red" block class="white--text" @click="lostPict">欠落画像一覧/lost pictures</v-btn></v-card-actions>
         </v-card>
 <!--        <nuxt-content :document="head[0]"/>-->
       </v-col>
@@ -276,6 +276,10 @@ export default class index extends Vue {
       ad,
       today
     }
+  }
+
+  lostPict() {
+    this.$router.push('prevPicts')
   }
 
   postUrl(info: BlogInfo) {

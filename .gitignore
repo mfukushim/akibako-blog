@@ -96,4 +96,5 @@ sw.*
 
 # Local Netlify folder
 .netlify
-/static/ads.txt
+/tools/ads.txt
+/tools/ads.txt

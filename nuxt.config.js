@@ -55,7 +55,7 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
     // '@nuxtjs/router',
-    // '@nuxtjs/google-analytics',
+    '@nuxtjs/google-analytics',
     '@nuxtjs/dotenv'
   ],
 
@@ -63,10 +63,10 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    ['@nuxtjs/google-adsense', {
-      id: process.env.ADSENSE,
-      test: false
-    }],
+    // ['@nuxtjs/google-adsense', {
+    //   id: process.env.ADSENSE,
+    //   test: false
+    // }],
     '@nuxtjs/i18n'
   ],
   i18n: {

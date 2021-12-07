@@ -18,9 +18,6 @@
       </v-card-text>
     </v-card>
     <v-row>
-      <v-col class="text-center">
-        {{ b }}
-      </v-col>
       <v-col cols="1" class="text-right">
         <v-btn @click="back" fab dark color="blue">
           <v-icon>mdi-keyboard-return</v-icon>
@@ -31,7 +28,7 @@
       <v-col
         v-for="b in files"
         :key="b">
-        <v-img :src="`../prev_pict/${b}`"></v-img>
+        <v-img :src="'/prev_pict/'+b"></v-img>
         {{ b }}
       </v-col>
     </v-row>
@@ -47,7 +44,8 @@
 <script lang="ts">
 import {Context} from '@nuxt/types'
 import {Component, Vue} from 'nuxt-property-decorator'
-// import filesList from '@/assets/filelist.json'
+import filesList from '@/assets/filelist.json'
+/*
 const dataFiles = [
   '2020/01/20081211_0001.jpg',
   '2020/01/20081211_0002.jpg',
@@ -1602,6 +1600,7 @@ const dataFiles = [
   'uploads/2020/05/20090202_0004.jpg',
   'uploads/2020/05/コメント-2020-05-05-221410.png'
 ]
+*/
 
 @Component({
   name: 'PrevPict0'
@@ -1609,13 +1608,14 @@ const dataFiles = [
 export default class PrevPict0 extends Vue {
   maxPage? = 0
   page? = 1
+  files = []
   asyncData({params}: Context) {
     const pageMax = 20
     const page = Number.parseInt(params.page)
 
-    const count: number = dataFiles.length
+    const count: number = filesList.files.length
     const maxPage = Math.floor(count / pageMax) + 1
-    const files = dataFiles.slice((page - 1) * pageMax, page * pageMax)
+    const files = filesList.files.slice((page - 1) * pageMax, page * pageMax)
     return {
       files,
       maxPage,
