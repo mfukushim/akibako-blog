@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-parallax src="back1.png" height="800">
+    <client-only>
+    <v-parallax :src="setBackPict()" height="800">
       <v-row
         class="fill-height"
         align="center"
@@ -21,7 +22,8 @@
         </v-col>
       </v-row>
     </v-parallax>
-<!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
+    </client-only>
+    <!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
 
     <!--    <v-carousel cycle dark hide-delimiters interval="20000">-->
     <!--      <v-carousel-item-->
@@ -50,9 +52,13 @@
       <v-col cols="12">
         <v-card>
           <v-card-title>2020年前後の欠落画像は暫定対策として以下にまとめて配置しました</v-card-title>
-          <v-card-actions ><v-btn color="red" block class="white--text" @click="lostPict">欠落画像一覧/lost pictures</v-btn></v-card-actions>
+          <v-card-actions>
+            <v-btn color="red" block class="white--text" @click="lostPict">
+              欠落画像一覧/lost pictures
+            </v-btn>
+          </v-card-actions>
         </v-card>
-<!--        <nuxt-content :document="head[0]"/>-->
+        <!--        <nuxt-content :document="head[0]"/>-->
       </v-col>
     </v-row>
     <v-row justify="center" align="center">
@@ -84,7 +90,7 @@
                   size="96"
                   tile
                 >
-                  <v-img :src="b.image"/>
+                  <v-img :src="b.image" />
                 </v-avatar>
               </div>
             </div>
@@ -104,9 +110,9 @@
                       {{ b.month }}- {{ b.day }}
                     </v-chip>
                   </nuxt-link>
-                  <v-spacer/>
+                  <v-spacer />
                   <v-btn outlined target="_blank" small style="text-transform: none" :href="postUrl(b)">
-                    <v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
+                    <v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg" />
                     {{ b.cid }}
                   </v-btn>
                 </v-row>
@@ -124,7 +130,7 @@
             </v-row>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <nuxt-content :document="b.post"/>
+            <nuxt-content :document="b.post" />
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -136,13 +142,12 @@
         </v-btn>
       </nuxt-link>
     </v-row>
-<!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
+    <!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
     <v-parallax src="back6.png" height="200">
-      <v-container  >
-        <v-row
-        >
+      <v-container>
+        <v-row>
           <v-col cols="1">
-            <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
+            <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg" />
           </v-col>
           <v-col cols="10" class="caption black--text">
             <div>{{ ipfsRoot }}</div>
@@ -168,61 +173,105 @@
         </v-row>
       </v-container>
     </v-parallax>
-    <v-row class="pa-3">
-    </v-row>
+    <v-row class="pa-3" />
     <v-card>
-      <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
+      <v-card-title>
+        <span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
       </v-card-title>
       <h2>2021/11/19</h2>
-      <v-img src="https://ipfs.io/ipfs/QmUBjiaKtMNNj1zuj6FQyzqU2oG3oyKFcpywSz5b6vi4St"></v-img>
+      <v-img src="https://ipfs.io/ipfs/QmUBjiaKtMNNj1zuj6FQyzqU2oG3oyKFcpywSz5b6vi4St" />
       <v-card-text class="d-flex flex-wrap">
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Server</div>
-          <div class="body-2">Information core server</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Server
+          </div>
+          <div class="body-2">
+            Information core server
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Front</div>
-          <div class="body-2">Basic information front end</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Front
+          </div>
+          <div class="body-2">
+            Basic information front end
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Task</div>
-          <div class="body-2">Private task note/editor/viewer</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Task
+          </div>
+          <div class="body-2">
+            Private task note/editor/viewer
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Monitor</div>
-          <div class="body-2">Private activity monitor on PC</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Monitor
+          </div>
+          <div class="body-2">
+            Private activity monitor on PC
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Receiver</div>
-          <div class="body-2">Cloud service receive gateway</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Receiver
+          </div>
+          <div class="body-2">
+            Cloud service receive gateway
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Runner</div>
-          <div class="body-2">Mascot for Business rest time</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Runner
+          </div>
+          <div class="body-2">
+            Mascot for Business rest time
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Space</div>
-          <div class="body-2">Room power management front end</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Space
+          </div>
+          <div class="body-2">
+            Room power management front end
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Billboard</div>
-          <div class="body-2">Enhanced task and private information ticker</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Billboard
+          </div>
+          <div class="body-2">
+            Enhanced task and private information ticker
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Cam</div>
-          <div class="body-2">InHouse body camera capture</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Cam
+          </div>
+          <div class="body-2">
+            InHouse body camera capture
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-Sense</div>
-          <div class="body-2">Scene/Life environment detect analysis service</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-Sense
+          </div>
+          <div class="body-2">
+            Scene/Life environment detect analysis service
+          </div>
         </div>
         <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">Mi-MonitorCs/Mi-MonitorUwp</div>
-          <div class="body-2">Headset connector transmitter/Keyboard,Mouse action detect</div>
+          <div class="subtitle-1 font-weight-bold">
+            Mi-MonitorCs/Mi-MonitorUwp
+          </div>
+          <div class="body-2">
+            Headset connector transmitter/Keyboard,Mouse action detect
+          </div>
         </div>
       </v-card-text>
     </v-card>
-<!--    <adsbygoogle :ad-slot="ad"/>-->
+    <!--    <adsbygoogle :ad-slot="ad"/>-->
   </div>
 </template>
 
@@ -284,6 +333,25 @@ export default class index extends Vue {
 
   postUrl(info: BlogInfo) {
     return `https://ipfs.io/ipfs/${info.cid}/index.md`
+  }
+
+  setBackPict() {
+    const NightSkybox = 'back_n.png'
+    const SunriseSkybox = 'back_r.png'
+    const DaySkybox = 'back1.png'
+    const SunsetSkybox = 'back_e.png'
+    let nextSkybox = ''
+    const nowHour = dayjs().hour()
+    if (nowHour < 6 || nowHour >= 20) {
+      nextSkybox = NightSkybox
+    } else if (nowHour < 9) {
+      nextSkybox = SunriseSkybox
+    } else if (nowHour < 17) {
+      nextSkybox = DaySkybox
+    } else {
+      nextSkybox = SunsetSkybox
+    }
+    return nextSkybox
   }
 }
 </script>
