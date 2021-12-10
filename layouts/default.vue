@@ -38,11 +38,11 @@
         <v-btn plain class="text-h4">{{ title }}</v-btn>
       </nuxt-link>
       <v-spacer/>
-      <nuxt-link to="/search" class="h4" style="text-decoration: none;">
+<!--      <nuxt-link to="/search" class="h4" style="text-decoration: none;">
         <v-btn fab plain>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
-      </nuxt-link>
+      </nuxt-link>-->
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
@@ -107,9 +107,11 @@ export default class index extends Vue {
     this.items = this.$config.categories
   }
 
+/*
   fullSearch () {
     this.$router.push(`/search/${this.queryText}`)
   }
+*/
 
   datePick () {
     this.$router.push(`/${this.selectDate.replaceAll('-', '/')}`)
@@ -118,8 +120,6 @@ export default class index extends Vue {
 
   afterLink () {
     this.drawer = false
-    // console.log(this.$refs['mainFocus'] as Vue)
-    // (this.$refs.mainFocus as any).focus()
   }
 }
 </script>

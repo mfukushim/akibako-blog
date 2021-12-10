@@ -60,6 +60,10 @@
         </v-card>
         <!--        <nuxt-content :document="head[0]"/>-->
       </v-col>
+      <v-col>
+        <script async :src="gcseUrl"></script>
+        <div class="gcse-search"></div>
+      </v-col>
     </v-row>
     <v-row justify="center" align="center">
       <div class="text-center text-h4 ma-2">
@@ -296,6 +300,7 @@ export default class index extends Vue {
   head?: any
   today?: string
   ad?: string
+  gcseUrl=process.env.GCSE_URL
 
   items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 

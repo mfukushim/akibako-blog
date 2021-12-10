@@ -253,7 +253,7 @@ export default {
   },
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
-    fullTextSearchFields: ['title', 'description'],
+    // fullTextSearchFields: ['title', 'description'],
     ipfsApiEndpoint: process.env.API_ENDPOINT
 
   },

@@ -15,7 +15,6 @@
     "deploy": "netlify deploy --prod"
   },
   "dependencies": {
-    "@lokidb/full-text-search": "^2.1.0",
     "@lokidb/loki": "^2.1.0",
     "@nuxt/content": "file:custom-content/packages/content",
     "@nuxtjs/axios": "^5.13.1",
@@ -27,9 +26,9 @@
     "core-js": "^3.9.1",
     "dayjs": "^1.10.4",
     "ipfs-core": "^0.12.2",
-    "multiformats": "^9.5.2",
     "jsonpath": "^1.1.1",
     "konva": "^7.2.5",
+    "multiformats": "^9.5.2",
     "nuxt": "^2.2.0",
     "nuxt-property-decorator": "^2.9.1",
     "property-information": "^5.6.0",
