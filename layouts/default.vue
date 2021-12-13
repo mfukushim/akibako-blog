@@ -62,14 +62,15 @@
       temporary
       fixed
     >
-      <v-list>
-        <v-date-picker
-          v-model="selectDate"
-          type="month"
-          @input="datePick"
-        ></v-date-picker>
-      </v-list>
-      <mi-runner ></mi-runner>
+      <div class="text-subtitle-1">under construction</div>
+      <!--      <v-list>
+              <v-date-picker
+                v-model="selectDate"
+                type="month"
+                @input="datePick"
+              ></v-date-picker>
+            </v-list>
+            <mi-runner ></mi-runner>-->
     </v-navigation-drawer>
     <v-footer
       :absolute="!fixed"

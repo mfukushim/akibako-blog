@@ -26,7 +26,7 @@ export default class ImageStack extends Vue {
   baseLayer?: Konva.Layer
   configKonva = {
     width: 0, //800,
-    height: 300
+    height: 1000
   };
   configText: Konva.TextConfig = {
     x: 25,

@@ -63,10 +63,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    // ['@nuxtjs/google-adsense', {
-    //   id: process.env.ADSENSE,
-    //   test: false
-    // }],
     '@nuxtjs/i18n'
   ],
   i18n: {

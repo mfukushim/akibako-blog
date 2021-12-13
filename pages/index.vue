@@ -275,7 +275,6 @@
         </div>
       </v-card-text>
     </v-card>
-    <!--    <adsbygoogle :ad-slot="ad"/>-->
   </div>
 </template>
 
@@ -299,10 +298,9 @@ export default class index extends Vue {
   rootUrl?: string
   head?: any
   today?: string
-  ad?: string
   gcseUrl=process.env.GCSE_URL
 
-  items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
+  // items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
 
   async asyncData({
     //  @ts-ignore
@@ -319,7 +317,6 @@ export default class index extends Vue {
     }).sortBy('date', 'desc').limit(5)
     const posts = await query.fetch()
     const links = Common.getPostList(posts)
-    const ad = process.env.AD_SLOT
 
     const today = dayjs().format('/YYYY/MM')
     return {
@@ -327,7 +324,6 @@ export default class index extends Vue {
       ipfsRoot: $config.ipfsRoot,
       rootUrl: `https://ipfs.io/ipfs/${$config.ipfsRoot}`,
       head,
-      ad,
       today
     }
   }
