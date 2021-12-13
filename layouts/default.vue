@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -38,11 +38,11 @@
         <v-btn plain class="text-h4">{{ title }}</v-btn>
       </nuxt-link>
       <v-spacer/>
-<!--      <nuxt-link to="/search" class="h4" style="text-decoration: none;">
-        <v-btn fab plain>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </nuxt-link>-->
+      <!--      <nuxt-link to="/search" class="h4" style="text-decoration: none;">
+              <v-btn fab plain>
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </nuxt-link>-->
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
@@ -82,12 +82,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-import MiRunner from '~/components/MiRunner.vue'
+import {Component, Vue} from 'nuxt-property-decorator'
+// import MiRunner from '~/components/MiRunner.vue'
 
 @Component({
   name: 'index',
-  components: { MiRunner }
+  components: {
+    // MiRunner
+  }
 })
 export default class index extends Vue {
   clipped = false
@@ -103,23 +105,23 @@ export default class index extends Vue {
 
   queryText = ''
 
-  mounted () {
+  mounted() {
     this.drawer = false
     this.items = this.$config.categories
   }
 
-/*
-  fullSearch () {
-    this.$router.push(`/search/${this.queryText}`)
-  }
-*/
+  /*
+    fullSearch () {
+      this.$router.push(`/search/${this.queryText}`)
+    }
+  */
 
-  datePick () {
+  datePick() {
     this.$router.push(`/${this.selectDate.replaceAll('-', '/')}`)
     this.menu2 = false
   }
 
-  afterLink () {
+  afterLink() {
     this.drawer = false
   }
 }

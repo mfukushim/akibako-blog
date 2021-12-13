@@ -83,7 +83,7 @@ export default {
   publicRuntimeConfig: {
     ipfsRoot: process.env.ROOT_CID,
     staticStore: process.env.STATIC_STORE || '',
-    blogServiceEndpoint: process.env.BLOG_SERVICE_ENDPOINT,
+    // blogServiceEndpoint: process.env.BLOG_SERVICE_ENDPOINT,
     categories: [
       {
         icon: 'mdi-apps',
