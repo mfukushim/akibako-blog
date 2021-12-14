@@ -1,6 +1,5 @@
 <template>
   <span>
-    <span>Category:</span>
     <span v-for="cat in body.categories">
         <nuxt-link :to="`/Categories/${cat}`" class="pa-1">
           <v-chip small>{{ cat }}</v-chip>
