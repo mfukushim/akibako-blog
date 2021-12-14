@@ -11,26 +11,30 @@
           </v-btn>
         </div>
       </div>
-      <div class="d-flex flex-row">
-        <div class="ma-2">
-          <DateView :article="article" />
-        </div>
-        <div class="ma-2">
-          <CategoryChipView :body="body" />
-        </div>
-        <v-spacer />
+    </div>
+    <v-row>
+      <v-col cols="2">
+        <DateView :article="article"/>
+      </v-col>
+      <v-col>
+        <CategoryChipView :body="body"/>
+      </v-col>
+      <v-col>
         <v-btn outlined target="_blank" style="text-transform: none" small :href="postUrl(body.parentCid)">
-          <v-img width="24" height="24" :src="base('ipfs-logo-vector-ice-text.svg')" />
+          <v-img width="24" height="24" :src="base('ipfs-logo-vector-ice-text.svg')"/>
           {{ body.parentCid }}
         </v-btn>
-      </div>
-    </div>
-    <v-btn class="white--text ma-2" color="pink" href="/prevPicts">
-      あるはずの画像が表示されない場合 / When you can't find an image that should be there
+      </v-col>
+    </v-row>
+    <v-btn class="white--text ma-2 text-body-2" color="pink" href="/prevPicts">
+      あるはずの画像が表示されない場合<br>When you can't find an image that should be there
     </v-btn>
-    <nuxt-content :document="body" />
+    <nuxt-content :document="body"/>
     <div>
-      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false"><v-icon>mdi-twitter</v-icon></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">
+        <v-icon>mdi-twitter</v-icon>
+      </a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"/>
     </div>
   </article>
 </template>

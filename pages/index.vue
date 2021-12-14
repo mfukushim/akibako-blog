@@ -114,20 +114,19 @@
                       {{ b.month }}- {{ b.day }}
                     </v-chip>
                   </nuxt-link>
-                  <v-spacer />
-                  <v-btn outlined target="_blank" small style="text-transform: none" :href="postUrl(b)">
+                  <v-spacer></v-spacer>
+                  <v-btn outlined target="_blank" small style="text-transform: none;font-size: xx-small" :href="postUrl(b)">
                     <v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg" />
                     {{ b.cid }}
                   </v-btn>
                 </v-row>
               </v-col>
-              <v-col cols="2">
+              <v-col cols="1">
                 <nuxt-link :to="`/${b.year}/${b.month}/${b.day}/${b.link}`" style="text-decoration: none;">
-                  <v-btn small color="gray">
-                    <v-icon small dark left>
+                  <v-btn x-small color="gray">
+                    <v-icon x-small dark left>
                       mdi-arrow-right
                     </v-icon>
-                    Detail
                   </v-btn>
                 </nuxt-link>
               </v-col>
