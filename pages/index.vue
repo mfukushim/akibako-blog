@@ -336,20 +336,29 @@ export default class index extends Vue {
   }
 
   setBackPict() {
-    const NightSkybox = 'back_n.png'
-    const SunriseSkybox = 'back_r.png'
-    const DaySkybox = 'back1.png'
-    const SunsetSkybox = 'back_e.png'
+    const night = 'back_night.png'
+    const midnight = 'back_midnight.png'
+    const sunrise = 'back_sunrise.png'
+    const morning = 'back_morning.png'
+    const noon = 'back_noon.png'
+    const afternoon = 'back_afternoon.png'
+    const sunset = 'back_sunset.png'
     let nextSkybox = ''
     const nowHour = dayjs().hour()
-    if (nowHour < 6 || nowHour >= 20) {
-      nextSkybox = NightSkybox
+    if (nowHour < 1 || nowHour >= 20) {
+      nextSkybox = night
+    } else if (nowHour < 6) {
+      nextSkybox = midnight
     } else if (nowHour < 9) {
-      nextSkybox = SunriseSkybox
+      nextSkybox = sunrise
+    } else if (nowHour < 12) {
+      nextSkybox = morning
+    } else if (nowHour < 12) {
+      nextSkybox = noon
     } else if (nowHour < 17) {
-      nextSkybox = DaySkybox
+      nextSkybox = afternoon
     } else {
-      nextSkybox = SunsetSkybox
+      nextSkybox = sunset
     }
     return nextSkybox
   }
