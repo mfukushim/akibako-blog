@@ -100,3 +100,4 @@ sw.*
 /tools/ads.txt
 /tools/
 /put.ps1
+/static/
