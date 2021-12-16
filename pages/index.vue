@@ -353,7 +353,7 @@ export default class index extends Vue {
       nextSkybox = sunrise
     } else if (nowHour < 12) {
       nextSkybox = morning
-    } else if (nowHour < 12) {
+    } else if (nowHour < 13) {
       nextSkybox = noon
     } else if (nowHour < 17) {
       nextSkybox = afternoon
