@@ -12,7 +12,7 @@
           cols="12"
           align-self="end"
         >
-          <div class="text-h2 grey--text text--darken-1 font-weight-medium mb-4 ma-2">
+          <div class="text-h2 white--text font-weight-medium mb-4 ma-2">
             あきばこ工房
           </div>
           <div class="text-subtitle-1 brown--text text--lighten-1 font-weight-medium ma-2">
@@ -36,17 +36,24 @@
     <!--      </v-carousel-item>-->
     <!--    </v-carousel>-->
     <v-row justify="center" align="center" class="ma-2">
-      <v-col class="text-center" cols="12">
-        <v-chip
-          class="ma-2"
-          color="success"
-          outlined
-          href="mi-runner"
-        >
+      <v-col class="text-center">
+        <v-chip class="ma-2" outlined href="mi-system">
+          <v-icon left>
+            mdi-tree
+          </v-icon>
+          Mi-System
+        </v-chip>
+        <v-chip class="ma-2" outlined href="mi-runner">
           <v-icon left>
             mdi-run
           </v-icon>
           Mi-Runner summary
+        </v-chip>
+        <v-chip class="ma-2" outlined href="mi-desk">
+          <v-icon left>
+            mdi-desk
+          </v-icon>
+          Mi-Desk (Unity player PC)
         </v-chip>
       </v-col>
       <v-col cols="12">
@@ -146,134 +153,37 @@
       </nuxt-link>
     </v-row>
     <!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
+    <v-container>
+      <v-row>
+        <v-col cols="1">
+          <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg" />
+        </v-col>
+        <v-col cols="10" class="caption black--text">
+          <div>{{ ipfsRoot }}</div>
+          Current articles root (markdown)
+          This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-btn
+          icon
+          href="https://twitter.com/coronahope"
+          color="blue"
+        >
+          <v-icon>mdi-twitter</v-icon>
+        </v-btn>
+        <v-btn
+          icon
+          href="https://github.com/mfukushim"
+          color="blue"
+        >
+          <v-icon>mdi-github</v-icon>
+        </v-btn>
+      </v-row>
+    </v-container>
     <v-parallax src="back6.png" height="200">
-      <v-container>
-        <v-row>
-          <v-col cols="1">
-            <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg" />
-          </v-col>
-          <v-col cols="10" class="caption black--text">
-            <div>{{ ipfsRoot }}</div>
-            Current articles root (markdown)
-            This cid is DAG node tree. Use IPFS Desktop inspect to view structure.
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-btn
-            icon
-            href="https://twitter.com/coronahope"
-            color="blue"
-          >
-            <v-icon>mdi-twitter</v-icon>
-          </v-btn>
-          <v-btn
-            icon
-            href="https://github.com/mfukushim"
-            color="blue"
-          >
-            <v-icon>mdi-github</v-icon>
-          </v-btn>
-        </v-row>
-      </v-container>
     </v-parallax>
-    <v-row class="pa-3" />
-    <v-card>
-      <v-card-title>
-        <span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
-      </v-card-title>
-      <h2>2021/11/19</h2>
-      <v-img src="https://ipfs.io/ipfs/QmUBjiaKtMNNj1zuj6FQyzqU2oG3oyKFcpywSz5b6vi4St" />
-      <v-card-text class="d-flex flex-wrap">
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Server
-          </div>
-          <div class="body-2">
-            Information core server
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Front
-          </div>
-          <div class="body-2">
-            Basic information front end
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Task
-          </div>
-          <div class="body-2">
-            Private task note/editor/viewer
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Monitor
-          </div>
-          <div class="body-2">
-            Private activity monitor on PC
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Receiver
-          </div>
-          <div class="body-2">
-            Cloud service receive gateway
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Runner
-          </div>
-          <div class="body-2">
-            Mascot for Business rest time
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Space
-          </div>
-          <div class="body-2">
-            Room power management front end
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Billboard
-          </div>
-          <div class="body-2">
-            Enhanced task and private information ticker
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Cam
-          </div>
-          <div class="body-2">
-            InHouse body camera capture
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-Sense
-          </div>
-          <div class="body-2">
-            Scene/Life environment detect analysis service
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="subtitle-1 font-weight-bold">
-            Mi-MonitorCs/Mi-MonitorUwp
-          </div>
-          <div class="body-2">
-            Headset connector transmitter/Keyboard,Mouse action detect
-          </div>
-        </div>
-      </v-card-text>
-    </v-card>
+    <MiSystem></MiSystem>
   </div>
 </template>
 
@@ -283,12 +193,14 @@ import {Component, Vue} from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import {BlogInfo, Common} from '~/services/Common'
+import MiSystem from "~/components/MiSystem.vue";
 
 dayjs.extend(timezone)
 dayjs.tz.setDefault('Asia/Tokyo')
 
 @Component({
-  name: 'index'
+  name: 'index',
+  components: {MiSystem}
 })
 export default class index extends Vue {
   openedItem: number | null = null

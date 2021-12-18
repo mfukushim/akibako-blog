@@ -18,7 +18,7 @@ export default {
   name: 'DateView',
   props: {
     article: null
-  },
+  }
 }
 </script>
 

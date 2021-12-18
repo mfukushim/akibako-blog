@@ -90,13 +90,11 @@ sw.*
 *.swp
 /content/posts/
 /static/images/
-/content/posts/
 /bak_posts/
 /content/
 
 # Local Netlify folder
 .netlify
-/tools/ads.txt
 /tools/ads.txt
 /tools/
 /put.ps1

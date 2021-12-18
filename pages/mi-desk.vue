@@ -1,8 +1,10 @@
 <template>
   <div>
-    <v-sheet v-if="!isSmartPhone()" height="600">
-      <Unity :unity="unityView" width="1000px" height="600px"/>
-    </v-sheet>
+    <client-only>
+      <v-sheet v-if="ready && !isSmartPhone()" height="600">
+        <Unity :unity="unityView" width="1000px" height="600px"/>
+      </v-sheet>
+    </client-only>
   </div>
 </template>
 
@@ -12,16 +14,6 @@ import {Component, Vue} from 'nuxt-property-decorator'
 import UnityWebgl, {VueUnity} from 'unity-webgl'
 import serverService from '~/services/ServerService'
 
-const unityPlayer = new UnityWebgl({
-  loaderUrl: 'avatar/Build/avatar.loader.js',
-  dataUrl: 'avatar/Build/avatar.data.unityweb',
-  frameworkUrl: 'avatar/Build/avatar.framework.js.unityweb',
-  codeUrl: 'avatar/Build/avatar.wasm.unityweb',
-  streamingAssetsUrl: 'StreamingAssets',
-  companyName: 'mfuku',
-  productName: 'mi-avatarTest',
-  productVersion: '0.1'
-})
 
 @Component({
   name: 'index',
@@ -30,10 +22,22 @@ const unityPlayer = new UnityWebgl({
   }
 })
 export default class MiDesk extends Vue {
-  unityView = unityPlayer
+  unityView?:any;// = unityPlayer
+  ready = false
 
   mounted() {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
+    this.unityView = new UnityWebgl({
+      loaderUrl: 'avatar/Build/avatar.loader.js',
+      dataUrl: 'avatar/Build/avatar.data.unityweb',
+      frameworkUrl: 'avatar/Build/avatar.framework.js.unityweb',
+      codeUrl: 'avatar/Build/avatar.wasm.unityweb',
+      streamingAssetsUrl: 'StreamingAssets',
+      companyName: 'mfuku',
+      productName: 'mi-avatarTest',
+      productVersion: '0.1'
+    })
+    this.ready = true
   }
 
   // historyItemToLabel(item: MiHistory) {
