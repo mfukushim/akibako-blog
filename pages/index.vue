@@ -1,40 +1,29 @@
 <template>
   <div>
     <client-only>
-    <v-parallax :src="setBackPict()" height="800">
-      <v-row
-        class="fill-height"
-        align="center"
-        justify="center"
-      >
-        <v-col
-          class="text-right black--text"
-          cols="12"
-          align-self="end"
+      <v-parallax :src="setBackPict()" height="800">
+        <v-row
+          class="fill-height"
+          align="center"
+          justify="center"
         >
-          <div class="text-h2 white--text font-weight-medium mb-4 ma-2">
-            あきばこ工房
-          </div>
-          <div class="text-subtitle-1 brown--text text--lighten-1 font-weight-medium ma-2">
-            <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
-            <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-parallax>
+          <v-col
+            class="text-right black--text"
+            cols="12"
+            align-self="end"
+          >
+            <div class="text-h2 white--text font-weight-medium mb-4 ma-2">
+              あきばこ工房
+            </div>
+            <div class="text-subtitle-1 brown--text text--lighten-1 font-weight-medium ma-2">
+              <div>「バグのないソフトは時代遅れのソフトである」と若い頃本で読んだ。</div>
+              <div>昔同僚に「あなたはPCとチャネリングしているようだ」とも言われた</div>
+            </div>
+          </v-col>
+        </v-row>
+      </v-parallax>
     </client-only>
     <!--    <ImageStack :storeUrl="$config.staticStore"></ImageStack>-->
-
-    <!--    <v-carousel cycle dark hide-delimiters interval="20000">-->
-    <!--      <v-carousel-item-->
-    <!--        v-for="(item,i) in items"-->
-    <!--        :key="i"-->
-    <!--        :src="item"-->
-    <!--        reverse-transition="fade-transition"-->
-    <!--        transition="fade-transition"-->
-    <!--      >-->
-    <!--      </v-carousel-item>-->
-    <!--    </v-carousel>-->
     <v-row justify="center" align="center" class="ma-2">
       <v-col class="text-center">
         <v-chip class="ma-2" outlined href="mi-system">
@@ -49,12 +38,12 @@
           </v-icon>
           Mi-Runner summary
         </v-chip>
-        <v-chip class="ma-2" outlined href="mi-desk">
+<!--        <v-chip class="ma-2" outlined href="mi-desk">
           <v-icon left>
             mdi-desk
           </v-icon>
           Mi-Desk (Unity player PC)
-        </v-chip>
+        </v-chip>-->
       </v-col>
       <v-col cols="12">
         <v-card>
@@ -65,7 +54,6 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-        <!--        <nuxt-content :document="head[0]"/>-->
       </v-col>
       <v-col>
         <script async :src="gcseUrl"></script>
@@ -101,7 +89,7 @@
                   size="96"
                   tile
                 >
-                  <v-img :src="b.image" />
+                  <v-img :src="b.image"/>
                 </v-avatar>
               </div>
             </div>
@@ -122,8 +110,9 @@
                     </v-chip>
                   </nuxt-link>
                   <v-spacer></v-spacer>
-                  <v-btn outlined target="_blank" small style="text-transform: none;font-size: xx-small" :href="postUrl(b)">
-                    <v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg" />
+                  <v-btn outlined target="_blank" small style="text-transform: none;font-size: xx-small"
+                         :href="postUrl(b)">
+                    <v-img width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
                     {{ b.cid }}
                   </v-btn>
                 </v-row>
@@ -140,7 +129,7 @@
             </v-row>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <nuxt-content :document="b.post" />
+            <nuxt-content :document="b.post"/>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -156,7 +145,7 @@
     <v-container>
       <v-row>
         <v-col cols="1">
-          <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg" />
+          <v-img contain width="24" height="24" src="ipfs-logo-vector-ice-text.svg"/>
         </v-col>
         <v-col cols="10" class="caption black--text">
           <div>{{ ipfsRoot }}</div>
@@ -193,7 +182,7 @@ import {Component, Vue} from 'nuxt-property-decorator'
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import {BlogInfo, Common} from '~/services/Common'
-import MiSystem from "~/components/MiSystem.vue";
+import MiSystem from '~/components/MiSystem.vue'
 
 dayjs.extend(timezone)
 dayjs.tz.setDefault('Asia/Tokyo')
@@ -209,15 +198,10 @@ export default class index extends Vue {
   rootUrl?: string
   head?: any
   today?: string
-  gcseUrl=process.env.GCSE_URL
+  gcseUrl = process.env.GCSE_URL
 
-  // items: string[] = [...new Array(7).keys()].map(value => `${this.$config.staticStore}/${value.toString().padStart(2, '0')}.jpg`)
-
-  async asyncData({
-    //  @ts-ignore
-    $content,
-    $config
-  }: Context) {
+  //  @ts-ignore
+  async asyncData({$content, $config}: Context) {
     const headQuery = $content('ipfs', {deep: true}).where({
       categories: {$contains: 'head'}
     }).sortBy('date', 'desc').limit(1)

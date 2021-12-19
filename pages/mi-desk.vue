@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <client-only>
-      <v-sheet v-if="ready && !isSmartPhone()" height="600">
-        <Unity :unity="unityView" width="1000px" height="600px"/>
-      </v-sheet>
-    </client-only>
-  </div>
+  <client-only placeholder="Loading...">
+    <v-sheet v-if="ready && !isSmartPhone()" height="600">
+      <Unity :unity="unityView" width="1000px" height="600px"/>
+    </v-sheet>
+  </client-only>
 </template>
 
 <script lang="ts">
@@ -22,16 +20,16 @@ import serverService from '~/services/ServerService'
   }
 })
 export default class MiDesk extends Vue {
-  unityView?:any;// = unityPlayer
+  unityView?: any;// = unityPlayer
   ready = false
 
   mounted() {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
     this.unityView = new UnityWebgl({
-      loaderUrl: 'avatar/Build/avatar.loader.js',
-      dataUrl: 'avatar/Build/avatar.data.unityweb',
-      frameworkUrl: 'avatar/Build/avatar.framework.js.unityweb',
-      codeUrl: 'avatar/Build/avatar.wasm.unityweb',
+      loaderUrl: '/avatar/Build/avatar.loader.js',
+      dataUrl: '/avatar/Build/avatar.data.unityweb',
+      frameworkUrl: '/avatar/Build/avatar.framework.js.unityweb',
+      codeUrl: '/avatar/Build/avatar.wasm.unityweb',
       streamingAssetsUrl: 'StreamingAssets',
       companyName: 'mfuku',
       productName: 'mi-avatarTest',
