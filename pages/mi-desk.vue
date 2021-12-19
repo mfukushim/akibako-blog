@@ -1,9 +1,11 @@
 <template>
-  <client-only placeholder="Loading...">
-    <v-sheet v-if="ready && !isSmartPhone()" height="600">
-      <Unity :unity="unityView" width="1000px" height="600px"/>
-    </v-sheet>
-  </client-only>
+  <div>
+    <client-only placeholder="Loading...">
+      <v-sheet v-if="ready && !isSmartPhone()" height="600">
+        <Unity :unity="unityView" width="1000px" height="600px"/>
+      </v-sheet>
+    </client-only>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,7 +13,6 @@ import {Component, Vue} from 'nuxt-property-decorator'
 //  @ts-ignore
 import UnityWebgl, {VueUnity} from 'unity-webgl'
 import serverService from '~/services/ServerService'
-
 
 @Component({
   name: 'index',
@@ -60,9 +61,9 @@ export default class MiDesk extends Vue {
   // }
   isSmartPhone() {
     if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   }
 }

@@ -5,6 +5,7 @@
         <span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
       </v-card-title>
       <v-card-subtitle>2021/12/18</v-card-subtitle>
+      <v-img src="https://ipfs.io/ipfs/QmYC6j9mkQi6Rew1CXSuyBEyPCRQURVxNPqQ3eaERb6m3q"/>
       <v-card-text class="d-flex flex-wrap">
         <div class="col-6">
           <div class="subtitle-1 font-weight-bold">
