@@ -66,7 +66,7 @@ export class ServerService {
       } else {
         return tweets.statusText as string
       }
-    } catch (e) {
+    } catch (e: any) {
       return e.message as string
     }
   }
@@ -79,7 +79,7 @@ export class ServerService {
       } else {
         return response.statusText as string
       }
-    } catch (e) {
+    } catch (e: any) {
       return e.message as string
     }
   }

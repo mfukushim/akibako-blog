@@ -1,10 +1,14 @@
 <template>
   <div>
-    <client-only placeholder="Loading...">
-      <v-sheet v-if="ready && !isSmartPhone()" height="600">
-        <Unity :unity="unityView" width="1000px" height="600px"/>
-      </v-sheet>
-    </client-only>
+    <v-card>
+      <v-card-title>Mi-Desk</v-card-title>
+      <client-only placeholder="Loading...">
+        <v-sheet v-if="ready && !isSmartPhone()" height="600">
+          <Unity :unity="unityView" width="1000px" height="600px"/>
+        </v-sheet>
+      </client-only>
+    </v-card>
+    <div class="text-caption">Unity player content(アセット最適化してないので読込遅いです)</div>
   </div>
 </template>
 
