@@ -70,7 +70,7 @@ export default class MiRunner extends Vue {
 
   async mounted() {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
-    const tripList = await serverService.getTripList(100, 10)
+    const tripList = await serverService.getTripList()
     if (tripList) {
       const history = await serverService.getMiHistory(tripList.slice(-1)[0])
       this.history = history || []
@@ -87,24 +87,7 @@ export default class MiRunner extends Vue {
     return `${span.hours().toString().padStart(2, '0')}:${span.minutes().toString().padStart(2, '0')}`
   }
 
-  /** 履歴取得 */
-  private async getHistory(tripId: string) {
-    const hist = await serverService.getMiHistory(tripId)
-    console.log(`hist:${hist}`)
-    this.history = hist || []
-  }
-
-  /** 出発地取得 */
-  // async getDepartureLocation() {
-  //   this.departureLoc = await this.getAddressToLocation(this.departureText)
-  // }
-
-  /** 目的値取得 */
-  // async getDestinationLocation() {
-  //   this.destinationLoc = await this.getAddressToLocation(this.destinationText)
-  // }
   getPict(item: MiHistory) {
-    // return item.lazy ? '' : serverService.baseURL + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}`
     return this.getPictWithType(item, 'image')
   }
 

@@ -9,6 +9,16 @@
       </client-only>
     </v-card>
     <div class="text-caption">Unity player content(アセット最適化してないので読込遅いです)</div>
+    <div class="text-subtitle-2">Components & tools</div>
+    <div class="text-body-2">
+      <p>Unity</p>
+      <p>Vroid Studio & UniVRM</p>
+      <p>Fantasy Skybox FREE</p>
+      <p>Sitting MoCap Collection</p>
+      <p>Modern Lounge Chair 002</p>
+      <p>Sci-Fi Styled Modular Pack</p>
+      <p>CoffeeShop Starter Pack</p>
+    </div>
   </div>
 </template>
 

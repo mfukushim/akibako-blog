@@ -31,7 +31,7 @@ ipfs markdown articles.
 .env
 ```
 ROOT_CID=markdown articles root cid (e.g. bafyreifarcflnngmrzoeiaefh4ubwrst6rfcxlrfdjh565r4fmp2utv53e )
-API_ENDPOINT=(ipfs api endpoint. if not set,it run own ipfs client. e.g http://127.0.0.1:5002)
+IPFS_API_ENDPOINT=(ipfs api endpoint. if not set,it run own ipfs client. e.g http://127.0.0.1:5002)
 ANALYTICS= google analytics code
 ADSENSE= google adsense code
 AD_SLOT=google adsense ad slot id

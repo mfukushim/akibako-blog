@@ -6,69 +6,69 @@
     <div class="text-body-2">
       暇々にPCに走らせておく放置マスコット Mi-Runnerの旅行記録の抜粋
     </div>
-    <!--    <client-only placeholder="Loading...">-->
-    <div
-      v-for="(hItem,index) in history"
-      :key="index"
-    >
-      <v-card class="indigo">
-        <div class="d-flex flex-no-wrap justify-space-between">
-          <v-col cols="5">
-            <v-card-title
-              class="headline"
-            >
-              Trip at {{ hItem[0].time }}
-            </v-card-title>
-            <v-card-text>
-              <div>Departure: {{ hItem[0].address }}</div>
-              <div>Destination: {{ hItem[hItem.length - 1].address }}</div>
-            </v-card-text>
-          </v-col>
-          <v-col cols="7">
-            <v-img
-              height="160"
-              :src="getCourseMap(hItem[hItem.length-1])"
-            />
-          </v-col>
-        </div>
-      </v-card>
+    <client-only placeholder="Loading...">
       <div
-        v-for="(item) in hItem"
-        :key="item.seq"
+        v-for="(hItem,index) in history"
+        :key="index"
       >
-        <v-card
-          color="#73383d"
-          dark
-          class="ma-1"
-        >
+        <v-card class="indigo">
           <div class="d-flex flex-no-wrap justify-space-between">
-            <v-row>
-              <v-col cols="10">
-                <v-card-title
-                  class="headline"
-                  v-text="historyItemToLabel(item)"
-                />
-                <v-card-subtitle v-text="item.address"/>
-              </v-col>
-              <v-col cols="7">
-                <v-img
-                  max-height="240"
-                  :src="getPict(item)"
-                />
-              </v-col>
-              <v-col cols="4">
-                <v-img
-                  height="240"
-                  :src="getPlaceMap(item)"
-                />
-              </v-col>
-            </v-row>
+            <v-col cols="5">
+              <v-card-title
+                class="headline"
+              >
+                Trip at {{ hItem[0].time }}
+              </v-card-title>
+              <v-card-text>
+                <div>Departure: {{ hItem[0].address }}</div>
+                <div>Destination: {{ hItem[hItem.length - 1].address }}</div>
+              </v-card-text>
+            </v-col>
+            <v-col cols="7">
+              <v-img
+                height="160"
+                :src="getCourseMap(hItem[hItem.length-1])"
+              />
+            </v-col>
           </div>
         </v-card>
-      </div>
+        <div
+          v-for="(item) in hItem"
+          :key="item.seq"
+        >
+          <v-card
+            color="#73383d"
+            dark
+            class="ma-1"
+          >
+            <div class="d-flex flex-no-wrap justify-space-between">
+              <v-row>
+                <v-col cols="10">
+                  <v-card-title
+                    class="headline"
+                    v-text="historyItemToLabel(item)"
+                  />
+                  <v-card-subtitle v-text="item.address"/>
+                </v-col>
+                <v-col cols="7">
+                  <v-img
+                    max-height="240"
+                    :src="getPict(item)"
+                  />
+                </v-col>
+                <v-col cols="4">
+                  <v-img
+                    height="240"
+                    :src="getPlaceMap(item)"
+                  />
+                </v-col>
+              </v-row>
+            </div>
+          </v-card>
+        </div>
 
-    </div>
-    <!--    </client-only>-->
+      </div>
+    </client-only>
     <v-card>
       <v-card-title><span class="h1 ma-2">Mi</span> <span class="subtitle-1">private aid information system</span>
       </v-card-title>
@@ -137,14 +137,15 @@ export default class MiRunnerHistory extends Vue {
   courseMapUrl = ''
 
   testUrl = ''
+  localStaticRunnerPath = '/runner'
 
   async mounted() {
     serverService.setServerBaseUrl(this.$config.blogServiceEndpoint)
-
-    const tripList = await serverService.getTripList(100, 10);
-    if (tripList && tripList.length > 6) {
-      const map = await Promise.all(tripList.slice(-5, -1).map(value => serverService.getMiHistory(value)));
-      this.history = map.filter<MiHistory[]>((value): value is MiHistory[] => value != undefined)
+    console.log('mi-runner mounted')
+    const tripList = await serverService.getTripList()
+    console.log(`tripList:${JSON.stringify(tripList)}`)
+    if (tripList) {
+      this.history = await Promise.all(tripList.sort((a, b) => b.tripId - a.tripId).slice(0, 5).map(value => serverService.getMiHistory(value)))
     }
   }
 
@@ -181,8 +182,14 @@ export default class MiRunnerHistory extends Vue {
     return this.getPictWithType(item, 'courseMap')
   }
 
+  /**
+   * 指定画像のurl
+   * @param item
+   * @param pictType
+   */
   getPictWithType(item: MiHistory, pictType: string) {
-    return item.lazy ? '' : serverService.baseURL + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}&type=${pictType}`
+    return `${this.localStaticRunnerPath}/${item.tripId}/${item.seq}_${pictType}.jpg`
+    // return item.lazy ? '' : serverService.baseURL + `/mi-runner/capture?tripId=${item.tripId}&seq=${item.seq}&type=${pictType}`
   }
 }
 </script>

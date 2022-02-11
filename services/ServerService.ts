@@ -3,7 +3,6 @@ import * as querystring from 'query-string'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc' // dependent on utc plugin
 import timezone from 'dayjs/plugin/timezone'
-// import {MiHistory, MiStatus, StreetViewLocation} from "@/common/mi_common/MiRunnerDef";
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -47,6 +46,7 @@ export interface StreetViewLocation {
 
 export class ServerService {
   baseURL = ''
+  runnerLocalPath = '/runner'
 
   private options = {
     xsrfHeaderName: 'X-CSRF-Token',
@@ -103,12 +103,23 @@ export class ServerService {
     return await this.getAxios(`${this.baseURL}/mi-runner/leap-out`, loc) as { status: string; visit?: any } | string
   }
 
-  async getMiHistory(tripId: string): Promise<MiHistory[] | undefined> {
-    return await this.getAxios(`${this.baseURL}/mi-runner/history`, {tripId}) as MiHistory[] | undefined
+  /**
+   * runnerのhistoryローカル取得
+   →ローカル取得をrestからローカルjsonに変更
+   * @param trip
+   */
+  async getMiHistory(trip: { tripId: number; seq: number[] }): Promise<MiHistory[]> {
+    return (await Promise.all(trip.seq.map(async (q: number) => {
+      return await this.getAxios(`${this.runnerLocalPath}/${trip.tripId}/${q}.json`) as MiHistory
+    }))).sort((a, b) => a.seq - b.seq)
   }
 
-  async getTripList(daySpan?: number, maxNum?: number): Promise<string[] | undefined> {
-    return await this.getAxios(`${this.baseURL}/mi-runner/trips`, {daySpan, maxNum}) as string[] | undefined
+  /**
+   * 日付指定でのtripIdリストのローカル取得
+   * →ローカル取得をrestからローカルjsonに変更
+   */
+  async getTripList(): Promise<{ tripId: number; seq: number[] }[] | undefined> {
+    return await this.getAxios(`${this.runnerLocalPath}/trips.json`) as { tripId: number, seq: number[] }[] | undefined
   }
 
   async getMapLocation(addressName: string): Promise<{ status: string; address: string; lat: number; lng: number } | string> {
